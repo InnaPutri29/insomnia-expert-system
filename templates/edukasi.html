@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- hero/banner khusus edukasi -->
+<section class="hero edu-hero" style="background: linear-gradient(rgba(13,110,253,0.7),rgba(13,110,253,0.7)), url('/static/image/edu-bg.jpg') center/cover no-repeat;">
+  <div class="container hero-content">
+    <h1 class="mb-3">Edukasi Insomnia</h1>
+    <p class="lead">
+      Kenali lebih dalam penyebab, gejala, dan cara menangani gangguan tidur
+      untuk hidup yang lebih sehat.
+    </p>
+  </div>
+</section>
+
+<div class="container mt-5 mb-5">
+  <h2 class="text-center mb-4">Apa yang akan Anda pelajari?</h2>
+
+  <div class="row g-4">
+    <!-- Pengertian -->
+    <div class="col-lg-3 col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="fa-solid fa-question-circle fa-2x text-primary mb-3"></i>
+          <h5 class="card-title">Apa itu Insomnia?</h5>
+          <p class="card-text">
+            Gangguan tidur yang mengakibatkan kesulitan memulai atau
+            mempertahankan tidur, hingga mengganggu kualitas hidup.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Penyebab -->
+    <div class="col-lg-3 col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="fa-solid fa-lightbulb fa-2x text-warning mb-3"></i>
+          <h5 class="card-title">Penyebab</h5>
+          <ul class="text-start ps-3">
+            <li>Stres/tekanan</li>
+            <li>Kafein berlebihan</li>
+            <li>Gadget sebelum tidur</li>
+            <li>Pola tidur tak teratur</li>
+            <li>Masalah kesehatan</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gejala -->
+    <div class="col-lg-3 col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="fa-solid fa-bed fa-2x text-success mb-3"></i>
+          <h5 class="card-title">Gejala</h5>
+          <ul class="text-start ps-3">
+            <li>Sulit mulai tidur</li>
+            <li>Bangun malam</li>
+            <li>Bangun terlalu pagi</li>
+            <li>Lelah saat bangun</li>
+            <li>Sulit fokus</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cara Mengatasi -->
+    <div class="col-lg-3 col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="fa-solid fa-heart-pulse fa-2x text-danger mb-3"></i>
+          <h5 class="card-title">Cara Mengatasi</h5>
+          <ul class="text-start ps-3">
+            <li>Jadwal tidur teratur</li>
+            <li>Kurangi kafein</li>
+            <li>Hindari gadget</li>
+            <li>Lakukan relaksasi</li>
+            <li>Ciptakan lingkungan nyaman</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-5">
+    <a href="/deteksi" class="btn btn-outline-secondary me-2">
+      Mulai Deteksi
+    </a>
+    <a href="/" class="btn btn-secondary">
+      Kembali ke Beranda
+    </a>
+  </div>
+</div>
+
+{% endblock %}
