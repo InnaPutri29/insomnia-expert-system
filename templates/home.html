@@ -1,0 +1,121 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-content">
+    <h1>
+      Deteksi Dini <br />
+      Gangguan Insomnia
+    </h1>
+
+    <p>
+      Platform edukasi kesehatan untuk membantu masyarakat memahami, mendeteksi,
+      dan menangani gangguan tidur insomnia secara dini.
+    </p>
+
+  </div>
+</section>
+
+<!-- INFO BOX -->
+<section class="info-box container">
+  <div class="row text-center">
+    <div class="col-md-4">
+      <div class="info-card">
+        <i class="fa-solid fa-book-medical"></i>
+
+        <h5>Edukasi Insomnia</h5>
+
+        <p>
+          Informasi mengenai penyebab, gejala, dan dampak insomnia bagi
+          kesehatan.
+        </p>
+
+        <a href="/edukasi" class="info-btn">Pelajari</a>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="info-card">
+        <i class="fa-solid fa-brain"></i>
+
+        <h5>Deteksi Dini</h5>
+
+        <p>
+          Sistem pakar menggunakan metode Forward Chaining untuk analisis
+          gejala.
+        </p>
+
+        <a href="/deteksi" class="info-btn">Mulai Deteksi</a>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="info-card">
+        <i class="fa-solid fa-heart-pulse"></i>
+
+        <h5>Rekomendasi</h5>
+
+        <p>
+          Memberikan saran penanganan awal untuk mengurangi risiko insomnia.
+        </p>
+
+        <a href="/hasil" class="info-btn">Lihat Rekomendasi</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why-section">
+  <div class="container text-center">
+    <h2>Mengapa Website Ini Dibuat?</h2>
+
+    <p class="section-desc">
+      Insomnia merupakan salah satu gangguan tidur yang sering dialami oleh
+      mahasiswa dan masyarakat umum. Website ini membantu memberikan edukasi
+      serta deteksi dini insomnia.
+    </p>
+
+    <div class="row mt-5">
+      <div class="col-md-4">
+        <i class="fa-solid fa-stethoscope icon"></i>
+
+        <h5>Informasi Kesehatan</h5>
+
+        <p>Materi edukasi berdasarkan referensi kesehatan terpercaya.</p>
+      </div>
+
+      <div class="col-md-4">
+        <i class="fa-solid fa-laptop-medical icon"></i>
+
+        <h5>Sistem Pakar</h5>
+
+        <p>Menggunakan metode Forward Chaining dalam proses inferensi.</p>
+      </div>
+
+      <div class="col-md-4">
+        <i class="fa-solid fa-user-doctor icon"></i>
+
+        <h5>Bantuan Awal</h5>
+
+        <p>Memberikan rekomendasi penanganan sebelum konsultasi ke dokter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALL TO ACTION -->
+<section class="cta-section">
+  <div class="container text-center">
+    <h2>Mulai Deteksi Gejala Insomnia Anda</h2>
+
+    <p>
+      Jawab beberapa pertanyaan sederhana untuk mengetahui kemungkinan gangguan
+      insomnia yang Anda alami.
+    </p>
+
+    <a href="/deteksi" class="btn btn-primary btn-lg"> Mulai Sekarang </a>
+  </div>
+</section>
+
+{% endblock %}
