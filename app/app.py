@@ -14,5 +14,9 @@ def deteksi():
 def about():
     return render_template('about.html')
 
+@app.route('/edukasi')
+def edukasi():
+    return render_template('edukasi.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
