@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-3">Deteksi Insomnia</h2>
+                    <p class="text-center mb-4">
+                        Jawab beberapa pertanyaan sederhana di bawah ini untuk membantu
+                        sistem mendeteksi potensi gangguan tidur insomnia.
+                    </p>
+
+                    <!-- contoh formulir deteksi, bisa disesuaikan dengan logika aplikasi -->
+                    <form method="post" action="#">
+                        <div class="mb-3">
+                            <label class="form-label">1. Apakah Anda mengalami kesulitan tidur?</label>
+                            <select class="form-select" name="q1">
+                                <option value="" selected>Pilih jawaban</option>
+                                <option value="ya">Ya</option>
+                                <option value="tidak">Tidak</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">2. Berapa lama Anda terbangun di malam hari?</label>
+                            <input type="text" class="form-control" name="q2" placeholder="Contoh: 30 menit" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">3. Apakah Anda merasa lelah keesokan harinya?</label>
+                            <select class="form-select" name="q3">
+                                <option value="" selected>Pilih jawaban</option>
+                                <option value="sering">Sering</option>
+                                <option value="kadang">Kadang</option>
+                                <option value="tidak">Tidak</option>
+                            </select>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Kirim Jawaban</button>
+                        </div>
+                    </form>
+
+                    <hr />
+                    <div class="text-center">
+                        <a href="/edukasi" class="btn btn-outline-secondary me-2">
+                            Pelajari lebih dahulu
+                        </a>
+                        <a href="/" class="btn btn-secondary">
+                            Kembali ke Beranda
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
