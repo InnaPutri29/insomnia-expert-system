@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block content %}
+
+<section class="hasil-section">
+  <div class="container text-center">
+    <h1 class="mb-4">Hasil Deteksi Insomnia</h1>
+
+    <div class="hasil-card">
+      <h3>Skor Anda</h3>
+      <h2 class="skor">{{ skor }}</h2>
+
+      <h3 class="mt-4">Kategori</h3>
+      <h2 class="kategori">{{ kategori }}</h2>
+    </div>
+
+    <div class="mt-4">
+      {% if kategori == "Normal" %}
+      <p>
+        Pola tidur Anda masih dalam batas normal. Tetap pertahankan kebiasaan
+        tidur yang sehat agar kualitas tidur tetap terjaga.
+      </p>
+
+      {% elif kategori == "Insomnia Ringan" %}
+      <p>
+        Anda menunjukkan gejala insomnia ringan. Cobalah memperbaiki pola tidur,
+        mengurangi konsumsi kafein, dan menciptakan lingkungan tidur yang
+        nyaman.
+      </p>
+
+      {% elif kategori == "Insomnia Sedang" %}
+      <p>
+        Gejala insomnia yang Anda alami cukup mengganggu kualitas tidur.
+        Disarankan untuk mulai memperbaiki pola hidup dan mengelola stres dengan
+        baik.
+      </p>
+
+      {% elif kategori == "Insomnia Berat" %}
+      <p>
+        Gejala insomnia yang Anda alami cukup serius. Sebaiknya Anda
+        berkonsultasi dengan tenaga kesehatan atau psikolog untuk mendapatkan
+        penanganan yang tepat.
+      </p>
+      {% endif %}
+    </div>
+
+    <div class="mt-5">
+      <a href="/deteksi" class="btn btn-primary me-3"> Ulangi Deteksi </a>
+
+      <a href="/" class="btn btn-outline-primary"> Kembali ke Halaman Utama </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

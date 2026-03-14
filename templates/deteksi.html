@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block content %}
+
+<section class="deteksi-section">
+  <div class="container">
+    <h1 class="text-center mb-3">Deteksi Dini Insomnia</h1>
+
+    <p class="text-center deteksi-desc mb-5">
+      Silakan jawab pertanyaan berikut berdasarkan kondisi yang Anda alami dalam
+      1 bulan terakhir.
+    </p>
+
+    <form method="POST" action="/proses_deteksi">
+      {% for p in pertanyaan %}
+
+      <div class="question-card">
+        <p class="question-text">{{ loop.index }}. {{ p }}</p>
+
+        <div class="option-group">
+          <label>
+            <input type="radio" name="q{{ loop.index }}" value="0" required />
+            Tidak Pernah
+          </label>
+
+          <label>
+            <input type="radio" name="q{{ loop.index }}" value="1" />
+            Jarang
+          </label>
+
+          <label>
+            <input type="radio" name="q{{ loop.index }}" value="2" />
+            Sering
+          </label>
+
+          <label>
+            <input type="radio" name="q{{ loop.index }}" value="3" />
+            Selalu
+          </label>
+        </div>
+      </div>
+
+      {% endfor %}
+
+      <div class="text-center mt-5">
+        <button type="submit" class="deteksi-btn">Analisis Hasil</button>
+
+        <br /><br />
+
+        <a href="/" class="back-btn"> Kembali ke Halaman Utama </a>
+      </div>
+    </form>
+  </div>
+</section>
+
+{% endblock %}
