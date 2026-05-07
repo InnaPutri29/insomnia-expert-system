@@ -2,42 +2,114 @@
 
 <section class="deteksi-section">
   <div class="container">
-    <h1 class="text-center mb-3">Deteksi Dini Insomnia</h1>
-
+    <h1 class="text-center mb-4">Deteksi Insomnia</h1>
     <p class="text-center deteksi-desc mb-5">
-      Silakan jawab pertanyaan berikut berdasarkan kondisi yang Anda alami dalam
-      1 bulan terakhir.
+      Silakan pilih kondisi Anda selama 1 bulan terakhir.
     </p>
 
     <form method="POST" action="/proses_deteksi">
-      {% for p in pertanyaan %}
-
+      {% for g in gejala %}
       <div class="question-card">
-        <p class="question-text">{{ loop.index }}. {{ p }}</p>
+        <p class="question-text">{{ loop.index }}. {{ g.pertanyaan }}</p>
 
         <div class="option-group">
-          <label>
-            <input type="radio" name="q{{ loop.index }}" value="0" required />
-            Tidak Pernah
-          </label>
+          <!-- ONSET / MAINTENANCE / EARLY -->
+          {% if g.kategori in ['onset', 'maintenance', 'early'] %}
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="0" required />
+            Tidak Ada (0)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="1" /> Ringan
+            (1)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="2" /> Sedang
+            (2)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="3" /> Berat
+            (3)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="4" /> Sangat
+            Berat (4)</label
+          >
+          {% endif %}
 
-          <label>
-            <input type="radio" name="q{{ loop.index }}" value="1" />
-            Jarang
-          </label>
+          <!-- SATISFACTION -->
+          {% if g.kategori == 'satisfaction' %}
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="0" required />
+            Sangat Puas (0)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="1" /> Puas
+            (1)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="2" /> Cukup
+            Puas (2)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="3" /> Tidak
+            Puas (3)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="4" /> Sangat
+            Tidak Puas (4)</label
+          >
+          {% endif %}
 
-          <label>
-            <input type="radio" name="q{{ loop.index }}" value="2" />
-            Sering
-          </label>
+          <!-- DAYTIME & VISIBILITY -->
+          {% if g.kategori in ['daytime', 'visibility'] %}
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="0" required />
+            Tidak Terganggu (0)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="1" /> Sedikit
+            Terganggu (1)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="2" /> Cukup
+            Terganggu (2)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="3" />
+            Terganggu (3)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="4" /> Sangat
+            Terganggu (4)</label
+          >
+          {% endif %}
 
-          <label>
-            <input type="radio" name="q{{ loop.index }}" value="3" />
-            Selalu
-          </label>
+          <!-- DISTRESS -->
+          {% if g.kategori == 'distress' %}
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="0" required />
+            Tidak Khawatir (0)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="1" /> Sedikit
+            Khawatir (1)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="2" /> Cukup
+            Khawatir (2)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="3" /> Khawatir
+            (3)</label
+          >
+          <label
+            ><input type="radio" name="q{{ g.id_gejala }}" value="4" /> Sangat
+            Khawatir (4)</label
+          >
+          {% endif %}
         </div>
       </div>
-
       {% endfor %}
 
       <div class="text-center mt-5">
@@ -45,7 +117,11 @@
 
         <br /><br />
 
-        <a href="/" class="back-btn"> Kembali ke Halaman Utama </a>
+        <p class="ref-text">
+          Reference by: <strong>Insomnia Severity Index (ISI)</strong>
+        </p>
+
+        <a href="/" class="back-btn">Kembali ke Beranda</a>
       </div>
     </form>
   </div>

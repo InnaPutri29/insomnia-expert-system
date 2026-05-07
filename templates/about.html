@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="about-section">
+  <div class="container">
+
+    <h1 class="text-center mb-4">Tentang Sistem</h1>
+
+    <!-- DESKRIPSI -->
+    <div class="about-card">
+      <h3>Apa itu Sistem Ini?</h3>
+      <p>
+        Sistem ini merupakan <strong>Sistem Pakar Deteksi Dini Insomnia</strong> 
+        berbasis web yang dirancang untuk membantu pengguna dalam mengidentifikasi 
+        tingkat gangguan tidur (insomnia) secara mandiri.
+      </p>
+
+      <p>
+        Sistem ini menggunakan pendekatan ilmiah dengan mengadopsi instrumen 
+        <strong>Insomnia Severity Index (ISI)</strong> yang telah digunakan secara luas 
+        dalam dunia medis dan penelitian untuk mengukur tingkat keparahan insomnia.
+      </p>
+    </div>
+
+    <!-- METODE -->
+    <div class="about-card mt-4">
+      <h3>Metode yang Digunakan</h3>
+      <p>
+        Sistem ini mengimplementasikan metode <strong>Forward Chaining</strong>, yaitu 
+        teknik penalaran berbasis aturan (rule-based reasoning) yang bekerja dengan 
+        menganalisis fakta-fakta (jawaban pengguna) untuk menghasilkan kesimpulan 
+        berupa kategori tingkat insomnia.
+      </p>
+
+      <ul>
+        <li>Input: Jawaban dari 7 pertanyaan ISI</li>
+        <li>Proses: Perhitungan skor + inferensi berbasis aturan</li>
+        <li>Output: Kategori insomnia dan analisis kondisi pengguna</li>
+      </ul>
+    </div>
+
+    <!-- TUJUAN -->
+    <div class="about-card mt-4">
+      <h3>Tujuan Sistem</h3>
+      <p>
+        Tujuan utama dari sistem ini adalah:
+      </p>
+
+      <ul>
+        <li>Membantu deteksi dini gangguan insomnia</li>
+        <li>Meningkatkan kesadaran pentingnya kualitas tidur</li>
+        <li>Memberikan informasi awal sebelum konsultasi ke tenaga profesional</li>
+      </ul>
+    </div>
+
+    <!-- CATATAN -->
+    <div class="about-card mt-4">
+      <h3>Catatan Penting</h3>
+      <p>
+        Hasil dari sistem ini bukan merupakan diagnosis medis, melainkan hanya 
+        sebagai alat bantu awal. Untuk hasil yang lebih akurat dan penanganan yang 
+        tepat, disarankan untuk berkonsultasi dengan tenaga kesehatan profesional.
+      </p>
+    </div>
+
+    <!-- PEMBUAT -->
+    <div class="about-card mt-4 text-center">
+      <h3>Pengembang</h3>
+      <p>
+        Sistem ini dikembangkan sebagai bagian dari proyek akademik pada bidang 
+        <strong>Teknologi Informasi</strong>.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

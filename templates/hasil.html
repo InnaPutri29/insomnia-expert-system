@@ -4,48 +4,81 @@
   <div class="container text-center">
     <h1 class="mb-4">Hasil Deteksi Insomnia</h1>
 
+    <!-- CARD HASIL -->
     <div class="hasil-card">
-      <h3>Skor Anda</h3>
-      <h2 class="skor">{{ skor }}</h2>
+      <h3>Skor ISI Anda</h3>
+      <h2 class="skor">{{ skor }} / 28</h2>
 
       <h3 class="mt-4">Kategori</h3>
       <h2 class="kategori">{{ kategori }}</h2>
     </div>
 
+    <!-- INTERPRETASI -->
     <div class="mt-4">
-      {% if kategori == "Normal" %}
+      {% if kategori == "Tidak Insomnia" %}
       <p>
-        Pola tidur Anda masih dalam batas normal. Tetap pertahankan kebiasaan
-        tidur yang sehat agar kualitas tidur tetap terjaga.
+        Pola tidur Anda masih dalam batas normal. Pertahankan kebiasaan tidur
+        yang sehat agar kualitas tidur tetap terjaga.
       </p>
 
       {% elif kategori == "Insomnia Ringan" %}
       <p>
-        Anda menunjukkan gejala insomnia ringan. Cobalah memperbaiki pola tidur,
-        mengurangi konsumsi kafein, dan menciptakan lingkungan tidur yang
-        nyaman.
+        Anda mengalami insomnia ringan. Disarankan untuk mulai memperbaiki pola
+        tidur, mengurangi konsumsi kafein, serta menjaga konsistensi waktu
+        tidur.
       </p>
 
       {% elif kategori == "Insomnia Sedang" %}
       <p>
-        Gejala insomnia yang Anda alami cukup mengganggu kualitas tidur.
-        Disarankan untuk mulai memperbaiki pola hidup dan mengelola stres dengan
-        baik.
+        Insomnia yang Anda alami sudah cukup mengganggu kualitas hidup.
+        Disarankan untuk mengelola stres, menjaga kebiasaan tidur, dan mulai
+        mempertimbangkan konsultasi jika berlanjut.
       </p>
 
       {% elif kategori == "Insomnia Berat" %}
       <p>
-        Gejala insomnia yang Anda alami cukup serius. Sebaiknya Anda
-        berkonsultasi dengan tenaga kesehatan atau psikolog untuk mendapatkan
-        penanganan yang tepat.
+        Insomnia yang Anda alami tergolong berat dan berdampak signifikan.
+        Sangat disarankan untuk berkonsultasi dengan tenaga profesional seperti
+        psikolog atau dokter.
       </p>
       {% endif %}
     </div>
 
-    <div class="mt-5">
-      <a href="/deteksi" class="btn btn-primary me-3"> Ulangi Deteksi </a>
+    <!-- FAKTA (FORWARD CHAINING) -->
+    {% if fakta %}
+    <div class="mt-5 text-start">
+      <h4>Fakta yang Ditemukan:</h4>
+      <ul>
+        {% for f in fakta %}
+        <li>{{ f }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
 
-      <a href="/" class="btn btn-outline-primary"> Kembali ke Halaman Utama </a>
+    <!-- KESIMPULAN -->
+    {% if kesimpulan %}
+    <div class="mt-4 text-start">
+      <h4>Analisis Sistem:</h4>
+      <ul>
+        {% for k in kesimpulan %}
+        <li>{{ k }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <!-- REFERENSI -->
+    <div class="mt-4">
+      <p class="ref-text">
+        Reference by: <strong>Insomnia Severity Index (ISI)</strong>
+      </p>
+    </div>
+
+    <!-- BUTTON -->
+    <div class="mt-5">
+      <a href="/deteksi" class="btn btn-primary me-3">Ulangi Deteksi</a>
+      <a href="/" class="btn btn-outline-primary">Kembali ke Halaman Utama</a>
     </div>
   </div>
 </section>

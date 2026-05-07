@@ -1,0 +1,69 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h3 class="mb-0">
+        <i class="fa-solid fa-clock-rotate-left"></i> Riwayat Deteksi Insomnia
+      </h3>
+    </div>
+    <div class="card-body">
+      {% if riwayat %}
+      <div class="table-responsive">
+        <table class="table table-hover table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>No</th>
+              <th>Tanggal Deteksi</th>
+              <th>Skor Total</th>
+              <th>Kategori</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in riwayat %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>
+                {{ item.tanggal_deteksi.strftime('%d/%m/%Y %H:%M:%S') if
+                item.tanggal_deteksi else '-' }}
+              </td>
+              <td>
+                <span class="badge bg-info">{{ item.skor_total }}</span>
+              </td>
+              <td>
+                {% if item.hasil_kategori == 'Insomnia Ringan' %}
+                <span class="badge bg-warning text-dark"
+                  >{{ item.hasil_kategori }}</span
+                >
+                {% elif item.hasil_kategori == 'Insomnia Sedang' %}
+                <span class="badge bg-danger">{{ item.hasil_kategori }}</span>
+                {% elif item.hasil_kategori == 'Insomnia Berat' %}
+                <span class="badge bg-dark">{{ item.hasil_kategori }}</span>
+                {% else %}
+                <span class="badge bg-success">{{ item.hasil_kategori }}</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="alert alert-info text-center">
+        <i class="fa-solid fa-circle-info"></i> Belum ada riwayat deteksi.
+        <a href="{{ url_for('deteksi') }}" class="alert-link"
+          >Lakukan deteksi sekarang</a
+        >
+      </div>
+      {% endif %}
+    </div>
+    <div class="card-footer text-center">
+      <a href="{{ url_for('deteksi') }}" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i> Deteksi Baru
+      </a>
+      <a href="{{ url_for('home') }}" class="btn btn-secondary">
+        <i class="fa-solid fa-home"></i> Kembali ke Home
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
