@@ -1,0 +1,67 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block admin_content %}
+<div class="container-fluid p-0">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="fw-bold mb-1">Manajemen Pengguna</h4>
+            <p class="text-muted small">Daftar seluruh pengguna (User) yang terdaftar di sistem SomnoLogic.</p>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr class="text-muted small">
+                            <th>PENGGUNA</th>
+                            <th class="text-center">ROLE</th>
+                            <th class="text-center">AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for u in users %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-primary-subtle text-primary fw-bold rounded-3 d-flex align-items-center justify-content-center me-3 shadow-sm" style="width: 40px; height: 40px;">
+                                        {{ u.username[0]|upper if u.username else '?' }}
+                                    </div>
+                                    <div>
+                                        <span class="fw-bold d-block small">{{ u.username }}</span>
+                                        <small class="text-muted" style="font-size: 10px;">ID: #{{ u.id_user }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                {# LOGIKA DINAMIS UNTUK ROLE #}
+                                {% if u.role == 'admin' %}
+                                    <span class="badge bg-primary text-white border-0 rounded-pill px-3 shadow-sm">Admin</span>
+                                {% else %}
+                                    <span class="badge bg-light text-primary border rounded-pill px-3">User</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ url_for('admin_delete_user', id=u.id_user) }}" 
+                                   class="btn btn-sm btn-white text-danger shadow-sm border rounded-3 p-2"
+                                   onclick="return confirm('Apakah Anda yakin ingin menghapus akun {{ u.username }}? Semua riwayat deteksinya juga akan terhapus secara permanen.')">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="3" class="text-center py-5">
+                                <i class="fa fa-users-slash fa-3x mb-3 opacity-25"></i>
+                                <p class="text-muted small mb-0">Belum ada pengguna yang terdaftar.</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

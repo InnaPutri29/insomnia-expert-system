@@ -1,0 +1,109 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block admin_content %}
+<div class="container-fluid p-0">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="fw-bold mb-1">Riwayat Deteksi Lengkap</h4>
+            <p class="text-muted small">Daftar seluruh diagnosis yang pernah dilakukan pengguna SomnoLogic.</p>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr class="text-muted small">
+                            <th>PENGGUNA</th>
+                            <th>SKOR</th>
+                            <th>TANGGAL</th>
+                            <th>HASIL</th>
+                            <th class="text-center">AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in riwayat %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-light text-primary fw-bold rounded-3 d-flex align-items-center justify-content-center me-3 shadow-sm" style="width: 40px; height: 40px; font-size: 14px;">
+                                        {{ r.nama_user[0]|upper if r.nama_user else 'A' }}
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold small">{{ r.nama_user or 'Anonim' }}</div>
+                                        <div class="text-muted" style="font-size: 10px;">ID: #{{ r.id_riwayat }}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-dark border fw-normal px-3 py-2 rounded-pill shadow-sm">
+                                    {{ r.skor_total }} Pts
+                                </span>
+                            </td>
+                            <td class="small text-secondary">
+                                {{ r.tanggal_deteksi.strftime('%d %b %Y %H:%M') if r.tanggal_deteksi else '-' }}
+                            </td>
+                            <td>
+                                {% if r.hasil_kategori == 'Tidak Insomnia' %}
+                                    <span class="badge bg-success-subtle text-success px-3 rounded-pill" style="font-size: 10px;">NORMAL</span>
+                                {% elif r.hasil_kategori == 'Insomnia Ringan' %}
+                                    <span class="badge bg-warning-subtle text-warning px-3 rounded-pill" style="font-size: 10px;">RINGAN</span>
+                                {% elif r.hasil_kategori == 'Insomnia Sedang' %}
+                                    <span class="badge bg-info-subtle text-info px-3 rounded-pill" style="font-size: 10px;">SEDANG</span>
+                                {% else %}
+                                    <span class="badge bg-danger-subtle text-danger px-3 rounded-pill" style="font-size: 10px;">BERAT</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group shadow-sm bg-white rounded-3">
+                                    <button class="btn btn-sm btn-white p-2 border-end" data-bs-toggle="modal" data-bs-target="#modalDetail{{ r.id_riwayat }}">
+                                        <i class="fa-regular fa-eye text-muted"></i>
+                                    </button>
+                                    
+                                    <a href="{{ url_for('admin_delete_riwayat', id=r.id_riwayat) }}" 
+                                       class="btn btn-sm btn-white p-2" 
+                                       onclick="return confirm('Hapus permanen riwayat deteksi ini?')">
+                                        <i class="fa-regular fa-trash-can text-danger"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <div class="modal fade" id="modalDetail{{ r.id_riwayat }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content border-0 shadow rounded-4">
+                                    <div class="modal-header border-0">
+                                        <h5 class="modal-title fw-bold">Detail Diagnosis #{{ r.id_riwayat }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body pt-0">
+                                        <div class="p-3 bg-light rounded-3 mb-3">
+                                            <div class="small text-muted">Nama Pengguna</div>
+                                            <div class="fw-bold">{{ r.nama_user or 'Anonim' }}</div>
+                                            <hr>
+                                            <div class="small text-muted">Hasil Analisis</div>
+                                            <div class="fw-bold text-primary">{{ r.hasil_kategori }} (Skor: {{ r.skor_total }})</div>
+                                            <div class="small text-muted mt-2">Waktu Deteksi</div>
+                                            <div class="small">{{ r.tanggal_deteksi.strftime('%d %B %Y - %H:%M:%S') if r.tanggal_deteksi else '-' }}</div>
+                                        </div>
+                                        <p class="small text-muted italic text-center">Data ini merupakan snapshot hasil deteksi sistem pakar.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center py-5">
+                                <p class="text-muted small">Data riwayat masih kosong.</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

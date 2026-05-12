@@ -1,0 +1,137 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block admin_content %}
+<div class="container-fluid p-0">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4 class="fw-bold mb-1">Dashboard Ringkasan</h4>
+            <p class="text-muted small">Gambaran umum hasil deteksi insomnia pengguna SomnoLogic.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-5 mb-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body p-4 text-center">
+                    <h6 class="fw-bold text-start mb-4">Statistik Kategori</h6>
+                    <div style="max-height: 250px;">
+                        <canvas id="insomniaChart"></canvas>
+                    </div>
+                    <div class="mt-4 d-flex justify-content-around small fw-bold">
+                        <div class="text-success">Normal: {{ normal|default(0) }}</div>
+                        <div class="text-warning">Ringan: {{ ringan|default(0) }}</div>
+                        <div class="text-orange" style="color: #fd7e14;">Sedang: {{ sedang|default(0) }}</div>
+                        <div class="text-danger">Berat: {{ berat|default(0) }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7 mb-4">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm border-0 bg-primary text-white h-100">
+                        <div class="card-body p-4 d-flex align-items-center">
+                            <div class="me-auto">
+                                <h6 class="opacity-75 mb-1 small">TOTAL DETEKSI</h6>
+                                <h2 class="fw-bold mb-0">{{ total|default(0) }}</h2>
+                            </div>
+                            <i class="fa fa-stethoscope fa-2x opacity-25"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm border-0 bg-info text-white h-100">
+                        <div class="card-body p-4 d-flex align-items-center">
+                            <div class="me-auto">
+                                <h6 class="opacity-75 mb-1 small">PENGGUNA TERDAFTAR</h6>
+                                <h2 class="fw-bold mb-0">{{ total_user|default(0) }}</h2>
+                            </div>
+                            <i class="fa fa-users fa-2x opacity-25"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-0 pt-4 px-4 d-flex justify-content-between align-items-center">
+                    <h6 class="fw-bold mb-0">5 Riwayat Terbaru</h6>
+                    <a href="{{ url_for('admin_riwayat') }}" class="btn btn-sm btn-light rounded-pill px-3 small fw-bold text-primary">Lihat Semua</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0" style="font-size: 13px;">
+                            <thead class="bg-light">
+                                <tr class="text-muted">
+                                    <th class="ps-4">PENGGUNA</th>
+                                    <th>HASIL</th>
+                                    <th class="pe-4 text-end">TANGGAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for r in riwayat %}
+                                <tr>
+                                    <td class="ps-4 fw-bold">{{ r.nama_user or 'Anonim' }}</td>
+                                    <td>
+                                        {% if r.hasil_kategori == 'Tidak Insomnia' %}
+                                            <span class="text-success small fw-bold"><i class="fa fa-circle me-1" style="font-size: 8px;"></i> Sehat</span>
+                                        {% elif r.hasil_kategori == 'Insomnia Ringan' %}
+                                            <span class="text-warning small fw-bold"><i class="fa fa-circle me-1" style="font-size: 8px;"></i> Ringan</span>
+                                        {% elif r.hasil_kategori == 'Insomnia Sedang' %}
+                                            <span style="color: #fd7e14;" class="small fw-bold"><i class="fa fa-circle me-1" style="font-size: 8px;"></i> Sedang</span>
+                                        {% else %}
+                                            <span class="text-danger small fw-bold"><i class="fa fa-circle me-1" style="font-size: 8px;"></i> Berat</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="pe-4 text-end text-muted small">
+                                        {{ r.tanggal_deteksi.strftime('%d/%m/%Y') if r.tanggal_deteksi else '-' }}
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="3" class="text-center py-4 text-muted small">Belum ada riwayat deteksi.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const ctx = document.getElementById('insomniaChart').getContext('2d');
+        
+        const chartData = [
+            Number("{{ normal|default(0) }}"), 
+            Number("{{ ringan|default(0) }}"), 
+            Number("{{ sedang|default(0) }}"), 
+            Number("{{ berat|default(0) }}")
+        ];
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Normal', 'Ringan', 'Sedang', 'Berat'],
+                datasets: [{
+                    data: chartData,
+                    backgroundColor: ['#1cc88a', '#f6c23e', '#fd7e14', '#e74a3b'],
+                    hoverOffset: 10,
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                cutout: '75%'
+            }
+        });
+    });
+</script>
+{% endblock %}
