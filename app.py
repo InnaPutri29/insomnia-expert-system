@@ -56,6 +56,10 @@ def edukasi():
 def about():
     return render_template("user/about.html")
 
+@app.route("/rekomendasi")
+def rekomendasi():
+    return render_template("user/rekomendasi.html")
+
 # ===============================
 # FITUR DETEKSI (USER)
 # ===============================

@@ -55,7 +55,7 @@
           <ul class="navbar-nav ms-auto align-items-lg-center">
             <li class="nav-item">
               <a class="nav-link nav-custom" href="{{ url_for('home') }}">
-                Home
+                Beranda
               </a>
             </li>
 
@@ -72,8 +72,17 @@
             </li>
 
             <li class="nav-item">
+              <a
+                class="nav-link nav-custom"
+                href="{{ url_for('rekomendasi') }}"
+              >
+                Rekomendasi
+              </a>
+            </li>
+
+            <li class="nav-item">
               <a class="nav-link nav-custom" href="{{ url_for('about') }}">
-                About Us
+                Tentang Kami
               </a>
             </li>
 
@@ -198,7 +207,7 @@
             <ul class="footer-links">
               <li>
                 <a href="{{ url_for('home') }}">
-                  <i class="fa-solid fa-house"></i> Home
+                  <i class="fa-solid fa-house"></i> Beranda
                 </a>
               </li>
 
@@ -215,8 +224,14 @@
               </li>
 
               <li>
+                <a href="{{ url_for('rekomendasi') }}">
+                  <i class="fa-solid fa-heart-pulse"></i> Rekomendasi
+                </a>
+              </li>
+
+              <li>
                 <a href="{{ url_for('about') }}">
-                  <i class="fa-solid fa-circle-info"></i> About
+                  <i class="fa-solid fa-circle-info"></i> Tentang
                 </a>
               </li>
             </ul>
@@ -229,17 +244,18 @@
             <div class="footer-contact">
               <p>
                 <i class="fa-solid fa-location-dot"></i>
-                Bandar Lampung, Indonesia
+                Jl. Guru Mulia 1, Karang Malang, Caturtunggal, Kec. Depok,
+                Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281
               </p>
 
               <p>
                 <i class="fa-solid fa-envelope"></i>
-                insomnify@gmail.com
+                mailto:upt-lbk@uny.ac.id
               </p>
 
               <p>
                 <i class="fa-solid fa-phone"></i>
-                +62 812-3456-7890
+                +62 823-2948-9495
               </p>
             </div>
           </div>
@@ -249,7 +265,9 @@
             <h4 class="footer-heading">Media Sosial</h4>
 
             <div class="footer-social">
-              <a href="#">
+              <a
+                href="https://www.instagram.com/ulbkuny?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+              >
                 <i class="fab fa-instagram"></i>
               </a>
 

@@ -1616,3 +1616,277 @@ section {
     text-align: center;
   }
 }
+
+/* ======================================================
+   REKOMENDASI PAGE
+====================================================== */
+
+.rekomendasi-section {
+  padding: 100px 0;
+  background: linear-gradient(to bottom, #f8fbff, #ffffff);
+  min-height: 100vh;
+}
+
+/* HERO */
+
+.rekomendasi-hero {
+  max-width: 850px;
+  margin: auto;
+  margin-bottom: 70px;
+}
+
+.rekomendasi-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  background: rgba(13, 110, 253, 0.1);
+
+  color: #0d6efd;
+
+  padding: 12px 22px;
+
+  border-radius: 50px;
+
+  font-weight: 700;
+
+  margin-bottom: 28px;
+}
+
+.rekomendasi-title {
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #0f172a;
+  margin-bottom: 22px;
+}
+
+.rekomendasi-title span {
+  color: #0d6efd;
+}
+
+.rekomendasi-desc {
+  font-size: 18px;
+  line-height: 1.9;
+  color: #64748b;
+  max-width: 720px;
+  margin: auto;
+}
+
+/* CARD */
+
+.rekomendasi-card {
+  background: white;
+
+  padding: 35px;
+
+  border-radius: 28px;
+
+  height: 100%;
+
+  position: relative;
+
+  overflow: hidden;
+
+  border: 1px solid #e2e8f0;
+
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.05);
+
+  transition: all 0.35s ease;
+}
+
+.rekomendasi-card:hover {
+  transform: translateY(-10px);
+
+  box-shadow: 0 20px 45px rgba(13, 110, 253, 0.12);
+
+  border-color: #bfdbfe;
+}
+
+.rekomendasi-icon {
+  width: 75px;
+  height: 75px;
+
+  border-radius: 22px;
+
+  background: linear-gradient(135deg, #0d6efd, #3b82f6);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 24px;
+
+  box-shadow: 0 12px 25px rgba(13, 110, 253, 0.25);
+}
+
+.rekomendasi-icon i {
+  color: white;
+  font-size: 30px;
+}
+
+.rekomendasi-card h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 15px;
+}
+
+.rekomendasi-card p {
+  color: #64748b;
+  line-height: 1.9;
+  margin: 0;
+}
+
+/* TIPS */
+
+.tips-wrapper {
+  margin-top: 90px;
+}
+
+.tips-card {
+  background: linear-gradient(135deg, #0d6efd, #2563eb);
+
+  border-radius: 30px;
+
+  padding: 55px;
+
+  color: white;
+
+  position: relative;
+
+  overflow: hidden;
+
+  box-shadow: 0 20px 45px rgba(13, 110, 253, 0.2);
+}
+
+.tips-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: -120px;
+  right: -120px;
+
+  width: 280px;
+  height: 280px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border-radius: 50%;
+}
+
+.tips-content {
+  position: relative;
+  z-index: 2;
+}
+
+.tips-content h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 28px;
+}
+
+.tips-content ul {
+  padding-left: 22px;
+}
+
+.tips-content li {
+  margin-bottom: 16px;
+  line-height: 1.8;
+  font-size: 17px;
+}
+
+/* CTA */
+
+.rekomendasi-cta {
+  margin-top: 90px;
+}
+
+.rekomendasi-cta h2 {
+  font-size: 42px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 20px;
+}
+
+.rekomendasi-cta p {
+  max-width: 720px;
+  margin: auto;
+  margin-bottom: 35px;
+
+  color: #64748b;
+  line-height: 1.9;
+}
+
+.rekomendasi-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  background: linear-gradient(135deg, #0d6efd, #2563eb);
+
+  color: white;
+  text-decoration: none;
+
+  padding: 16px 34px;
+
+  border-radius: 16px;
+
+  font-weight: 700;
+
+  transition: all 0.3s ease;
+
+  box-shadow: 0 12px 30px rgba(13, 110, 253, 0.25);
+}
+
+.rekomendasi-btn:hover {
+  transform: translateY(-4px);
+
+  color: white;
+
+  box-shadow: 0 18px 40px rgba(13, 110, 253, 0.35);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .rekomendasi-title {
+    font-size: 40px;
+  }
+
+  .rekomendasi-desc {
+    font-size: 16px;
+  }
+
+  .tips-card {
+    padding: 35px;
+  }
+
+  .tips-content h2 {
+    font-size: 28px;
+  }
+
+  .rekomendasi-cta h2 {
+    font-size: 32px;
+  }
+}
+
+.fitur-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+.fitur-btn:hover {
+  transform: translateY(-3px);
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.35);
+}
