@@ -1,0 +1,126 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block admin_content %}
+<div class="container-fluid p-0">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="fw-bold mb-1">Manajemen Gejala</h4>
+            <p class="text-muted small">Kelola data gejala untuk sistem pakar insomnia.</p>
+        </div>
+        <button class="btn btn-primary rounded-pill px-4 shadow-sm small fw-bold" data-bs-toggle="collapse" data-bs-target="#formTambahGejala">
+            <i class="fa fa-plus me-2"></i> TAMBAH GEJALA
+        </button>
+    </div>
+
+    <!-- Form Tambah Gejala -->
+    <div class="collapse mb-4" id="formTambahGejala">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h6 class="fw-bold mb-3 small text-primary text-uppercase">Input Data Baru</h6>
+                <form action="{{ url_for('admin_add_gejala') }}" method="POST" class="row g-3">
+                    <div class="col-md-2">
+                        <input type="text" name="kode_gejala" class="form-control form-control-sm rounded-3" placeholder="Kode (G01)" required>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="pertanyaan" class="form-control form-control-sm rounded-3" placeholder="Teks Pertanyaan Gejala" required>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" name="kategori" class="form-control form-control-sm rounded-3" placeholder="Kategori" required>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-success btn-sm w-100 rounded-3 fw-bold">SIMPAN</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabel Data Gejala -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr class="text-muted small">
+                            <th>KODE</th>
+                            <th>TEKS PERTANYAAN</th>
+                            <th>KATEGORI</th>
+                            <th class="text-center">AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in pertanyaan %}
+                        <tr>
+                            <td width="10%">
+                                <div class="bg-primary-subtle text-primary fw-bold rounded-3 d-flex align-items-center justify-content-center shadow-sm" style="width: 50px; height: 35px; font-size: 13px;">
+                                    {{ p.kode_gejala }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="small fw-semibold text-dark">{{ p.pertanyaan }}</div>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-secondary rounded-pill small">{{ p.kategori }}</span>
+                            </td>
+                            <td class="text-center" width="15%">
+                                <div class="btn-group shadow-sm bg-white rounded-3">
+                                    <button class="btn btn-sm btn-white p-2 border-end border-light" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#editModal{{ p.id_gejala }}" 
+                                            title="Edit">
+                                        <i class="fa-regular fa-pen-to-square text-muted"></i>
+                                    </button>
+                                    <a href="{{ url_for('admin_delete_gejala', id=p.id_gejala) }}" 
+                                       class="btn btn-sm btn-white p-2" 
+                                       onclick="return confirm('Hapus gejala ini?')" title="Hapus">
+                                        <i class="fa-regular fa-trash-can text-danger"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Modal Edit -->
+                        <div class="modal fade" id="editModal{{ p.id_gejala }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content border-0 shadow">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title fw-bold">Edit Gejala {{ p.kode_gejala }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form action="{{ url_for('admin_edit_gejala', id=p.id_gejala) }}" method="POST">
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label class="form-label small fw-bold">Kode Gejala</label>
+                                                <input type="text" name="kode_gejala" class="form-control" value="{{ p.kode_gejala }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label small fw-bold">Teks Pertanyaan</label>
+                                                <textarea name="pertanyaan" class="form-control" rows="3" required>{{ p.pertanyaan }}</textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label small fw-bold">Kategori</label>
+                                                <input type="text" name="kategori" class="form-control" value="{{ p.kategori }}" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light btn-sm rounded-pill px-3" data-bs-dismiss="modal">Batal</button>
+                                            <button type="submit" class="btn btn-primary btn-sm rounded-pill px-3">Simpan Perubahan</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center py-5">
+                                <p class="text-muted small italic">Belum ada data gejala.</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

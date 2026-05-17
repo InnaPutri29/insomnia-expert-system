@@ -1,22 +1,9 @@
-pertanyaan = [
-"Saya membutuhkan waktu lebih dari 30 menit untuk bisa tertidur setelah berbaring.",
-"Meskipun tubuh terasa lelah setelah beraktivitas, saya tetap kesulitan memejamkan mata.",
-"Saya sering terbangun di tengah malam dan sulit tidur kembali.",
-"Saya terbangun lebih awal dari jadwal dan tidak bisa tidur lagi.",
-"Jam tidur saya tidak teratur setiap hari.",
-"Durasi tidur malam saya kurang dari 7 jam.",
-"Tidur saya terasa tidak nyenyak atau sering terganggu.",
-"Saat bangun tubuh terasa lelah dan tidak segar.",
-"Saya merasa dada berdebar atau otot tegang saat mencoba tidur.",
-"Saya membutuhkan bantuan agar bisa tertidur.",
-"Saat mencoba tidur saya memikirkan tugas atau deadline.",
-"Saya merasa cemas atau gelisah saat waktu tidur tiba.",
-"Saya menggunakan HP atau laptop sebelum tidur.",
-"Saya mengonsumsi minuman berkafein di sore atau malam hari.",
-"Saya merasa sangat mengantuk saat mengikuti perkuliahan.",
-"Saya kesulitan berkonsentrasi saat kuliah.",
-"Saya merasa daya ingat menurun.",
-"Emosi saya menjadi tidak stabil.",
-"Saya pernah tertidur singkat saat kelas atau bekerja.",
-"Masalah tidur menurunkan performa akademik saya."
-]
+import os
+
+class Config:
+    SECRET_KEY = 'ganti-dengan-kunci-rahasia-yang-sulit-ditebak-12345'
+    MYSQL_HOST = 'localhost'
+    MYSQL_USER = 'root'
+    MYSQL_PASSWORD = ''
+    MYSQL_DB = 'insomnia_db'
+    MYSQL_CURSORCLASS = 'DictCursor'

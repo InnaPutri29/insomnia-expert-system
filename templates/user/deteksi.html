@@ -1,0 +1,357 @@
+{% extends "base.html" %} {% block content %}
+
+<section class="deteksi-section">
+  <div class="container">
+    <!-- HEADER -->
+    <div class="deteksi-header">
+      <div class="deteksi-badge">
+        <i class="fa-solid fa-moon"></i>
+        BERBASIS INSOMNIA SEVERITY INDEX
+      </div>
+
+      <h1 class="deteksi-title">Deteksi Dini <span>Insomnia</span></h1>
+
+      <p class="deteksi-desc">
+        Pahami kualitas tidur Anda. Silakan pilih kondisi yang paling tepat
+        menggambarkan pengalaman tidur Anda selama
+        <strong>1 bulan terakhir</strong>.
+      </p>
+    </div>
+
+    <!-- FORM -->
+    <form method="POST" action="/proses_deteksi">
+      {% for g in gejala %}
+      <div class="question-card">
+        <!-- TOP -->
+        <div class="question-top">
+          <div class="question-number">{{ loop.index }}</div>
+
+          <div class="question-content">
+            <h3 class="question-text">{{ g.pertanyaan }}</h3>
+
+            {% if g.kategori == 'daytime' %}
+            <p class="question-sub">
+              (misal: kelelahan, konsentrasi, atau performa terganggu)
+            </p>
+            {% endif %} {% if g.kategori == 'visibility' %}
+            <p class="question-sub">
+              (dalam hal penurunan kualitas hidup Anda)
+            </p>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- OPTION -->
+        <div class="option-group">
+          <!-- ONSET / MAINTENANCE / EARLY -->
+          {% if g.kategori in ['onset', 'maintenance', 'early'] %}
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_0"
+              name="q{{ g.id_gejala }}"
+              value="0"
+              required
+            />
+            <label for="q{{g.id_gejala}}_0">
+              <span class="option-title">Tidak Ada</span>
+              <span class="option-score">(0)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_1"
+              name="q{{ g.id_gejala }}"
+              value="1"
+            />
+            <label for="q{{g.id_gejala}}_1">
+              <span class="option-title">Ringan</span>
+              <span class="option-score">(1)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_2"
+              name="q{{ g.id_gejala }}"
+              value="2"
+            />
+            <label for="q{{g.id_gejala}}_2">
+              <span class="option-title">Sedang</span>
+              <span class="option-score">(2)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_3"
+              name="q{{ g.id_gejala }}"
+              value="3"
+            />
+            <label for="q{{g.id_gejala}}_3">
+              <span class="option-title">Berat</span>
+              <span class="option-score">(3)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_4"
+              name="q{{ g.id_gejala }}"
+              value="4"
+            />
+            <label for="q{{g.id_gejala}}_4">
+              <span class="option-title">Sangat Berat</span>
+              <span class="option-score">(4)</span>
+            </label>
+          </div>
+
+          {% endif %}
+
+          <!-- SATISFACTION -->
+          {% if g.kategori == 'satisfaction' %}
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_0"
+              name="q{{ g.id_gejala }}"
+              value="0"
+              required
+            />
+            <label for="q{{g.id_gejala}}_0">
+              <span class="option-title">Sangat Puas</span>
+              <span class="option-score">(0)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_1"
+              name="q{{ g.id_gejala }}"
+              value="1"
+            />
+            <label for="q{{g.id_gejala}}_1">
+              <span class="option-title">Puas</span>
+              <span class="option-score">(1)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_2"
+              name="q{{ g.id_gejala }}"
+              value="2"
+            />
+            <label for="q{{g.id_gejala}}_2">
+              <span class="option-title">Cukup Puas</span>
+              <span class="option-score">(2)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_3"
+              name="q{{ g.id_gejala }}"
+              value="3"
+            />
+            <label for="q{{g.id_gejala}}_3">
+              <span class="option-title">Tidak Puas</span>
+              <span class="option-score">(3)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_4"
+              name="q{{ g.id_gejala }}"
+              value="4"
+            />
+            <label for="q{{g.id_gejala}}_4">
+              <span class="option-title">Sangat Tidak Puas</span>
+              <span class="option-score">(4)</span>
+            </label>
+          </div>
+
+          {% endif %}
+
+          <!-- DAYTIME & VISIBILITY -->
+          {% if g.kategori in ['daytime', 'visibility'] %}
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_0"
+              name="q{{ g.id_gejala }}"
+              value="0"
+              required
+            />
+            <label for="q{{g.id_gejala}}_0">
+              <span class="option-title">Tidak Terlihat</span>
+              <span class="option-score">(0)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_1"
+              name="q{{ g.id_gejala }}"
+              value="1"
+            />
+            <label for="q{{g.id_gejala}}_1">
+              <span class="option-title">Sedikit Terlihat</span>
+              <span class="option-score">(1)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_2"
+              name="q{{ g.id_gejala }}"
+              value="2"
+            />
+            <label for="q{{g.id_gejala}}_2">
+              <span class="option-title">Cukup Terlihat</span>
+              <span class="option-score">(2)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_3"
+              name="q{{ g.id_gejala }}"
+              value="3"
+            />
+            <label for="q{{g.id_gejala}}_3">
+              <span class="option-title">Sangat Terlihat</span>
+              <span class="option-score">(3)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_4"
+              name="q{{ g.id_gejala }}"
+              value="4"
+            />
+            <label for="q{{g.id_gejala}}_4">
+              <span class="option-title">Sgt Nyata</span>
+              <span class="option-score">(4)</span>
+            </label>
+          </div>
+
+          {% endif %}
+
+          <!-- DISTRESS -->
+          {% if g.kategori == 'distress' %}
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_0"
+              name="q{{ g.id_gejala }}"
+              value="0"
+              required
+            />
+            <label for="q{{g.id_gejala}}_0">
+              <span class="option-title">Tidak Khawatir</span>
+              <span class="option-score">(0)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_1"
+              name="q{{ g.id_gejala }}"
+              value="1"
+            />
+            <label for="q{{g.id_gejala}}_1">
+              <span class="option-title">Sedikit Khawatir</span>
+              <span class="option-score">(1)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_2"
+              name="q{{ g.id_gejala }}"
+              value="2"
+            />
+            <label for="q{{g.id_gejala}}_2">
+              <span class="option-title">Ckp Khawatir</span>
+              <span class="option-score">(2)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_3"
+              name="q{{ g.id_gejala }}"
+              value="3"
+            />
+            <label for="q{{g.id_gejala}}_3">
+              <span class="option-title">Khawatir</span>
+              <span class="option-score">(3)</span>
+            </label>
+          </div>
+
+          <div class="option-card">
+            <input
+              type="radio"
+              id="q{{g.id_gejala}}_4"
+              name="q{{ g.id_gejala }}"
+              value="4"
+            />
+            <label for="q{{g.id_gejala}}_4">
+              <span class="option-title">Sgt Khawatir</span>
+              <span class="option-score">(4)</span>
+            </label>
+          </div>
+
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- ACTION -->
+      <div class="deteksi-action">
+        <div class="action-left">
+          <div class="action-icon">
+            <i class="fa-solid fa-list-check"></i>
+          </div>
+
+          <div class="action-text">
+            <h5>Menunggu Jawaban...</h5>
+            <p>Pilih semua 7 opsi</p>
+          </div>
+        </div>
+
+        <button type="submit" class="deteksi-btn">Analisis Hasil</button>
+      </div>
+
+      <p class="ref-text">
+        Reference by:
+        <strong>Insomnia Severity Index (ISI)</strong>
+      </p>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

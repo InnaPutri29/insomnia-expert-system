@@ -1,0 +1,177 @@
+{% extends "base.html" %} {% block content %}
+
+<section class="about-section">
+  <div class="container">
+    <!-- HEADER -->
+    <div class="text-center about-header">
+      <h1 class="about-title">Tentang Sistem</h1>
+
+      <p class="about-subtitle">
+        Sistem Pakar Deteksi Dini Insomnia berbasis web yang membantu pengguna
+        mengenali tingkat gangguan tidur secara cepat, mandiri, dan edukatif.
+      </p>
+    </div>
+
+    <!-- TENTANG SISTEM -->
+    <div class="about-card">
+      <h3>Apa Itu Sistem Ini?</h3>
+
+      <p>
+        Sistem ini merupakan <strong>Sistem Pakar Deteksi Dini Insomnia</strong>
+        berbasis website yang dikembangkan untuk membantu pengguna melakukan
+        identifikasi awal terhadap gangguan tidur insomnia.
+      </p>
+
+      <p>
+        Pengguna dapat melakukan proses deteksi dengan menjawab beberapa
+        pertanyaan terkait kualitas tidur yang dialami dalam 1 bulan terakhir.
+        Setelah proses analisis dilakukan, sistem akan memberikan hasil berupa
+        tingkat keparahan insomnia beserta penjelasannya.
+      </p>
+    </div>
+
+    <!-- ISI -->
+    <div class="about-card mt-4">
+      <h3>Instrumen yang Digunakan</h3>
+
+      <p>
+        Sistem ini menggunakan instrumen
+        <strong>Insomnia Severity Index (ISI)</strong>, yaitu alat ukur yang
+        telah digunakan secara luas dalam penelitian dan dunia kesehatan untuk
+        mengukur tingkat keparahan insomnia.
+      </p>
+
+      <p>ISI terdiri dari <strong>7 pertanyaan utama</strong> yang mencakup:</p>
+
+      <ul>
+        <li>Kesulitan memulai tidur</li>
+        <li>Kesulitan mempertahankan tidur</li>
+        <li>Bangun terlalu pagi</li>
+        <li>Kepuasan terhadap kualitas tidur</li>
+        <li>Gangguan aktivitas siang hari</li>
+        <li>Gangguan yang terlihat oleh orang lain</li>
+        <li>Tingkat kekhawatiran terhadap masalah tidur</li>
+      </ul>
+
+      <div class="reference-box">
+        <strong>Referensi:</strong><br />
+
+        Bastien, C. H., Vallières, A., & Morin, C. M. (2001). <br />
+        Validation of the Insomnia Severity Index as an outcome measure for
+        insomnia research.
+      </div>
+    </div>
+
+    <!-- METODE -->
+    <div class="about-card mt-4">
+      <h3>Metode Forward Chaining</h3>
+
+      <p>
+        Sistem ini menerapkan metode
+        <strong>Forward Chaining</strong>, yaitu metode penalaran berbasis
+        aturan (rule-based reasoning) yang bekerja dengan memulai dari
+        fakta-fakta yang diberikan oleh pengguna.
+      </p>
+
+      <p>
+        Jawaban pengguna akan diproses menjadi skor tertentu, kemudian sistem
+        melakukan inferensi untuk menentukan kategori tingkat insomnia sesuai
+        aturan yang telah ditentukan.
+      </p>
+
+      <div class="flow-box">
+        <div class="flow-item">
+          <h4>Input</h4>
+          <p>Jawaban pengguna dari 7 pertanyaan ISI</p>
+        </div>
+
+        <div class="flow-item">
+          <h4>Proses</h4>
+          <p>Perhitungan skor & inferensi Forward Chaining</p>
+        </div>
+
+        <div class="flow-item">
+          <h4>Output</h4>
+          <p>Hasil kategori tingkat insomnia pengguna</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- KATEGORI -->
+    <div class="about-card mt-4">
+      <h3>Kategori Tingkat Insomnia</h3>
+
+      <p>
+        Hasil deteksi akan dibagi menjadi beberapa kategori berdasarkan total
+        skor ISI:
+      </p>
+
+      <div class="kategori-wrapper">
+        <div class="kategori-item">
+          <span>0 – 7</span>
+          <p>Tidak Insomnia</p>
+        </div>
+
+        <div class="kategori-item">
+          <span>8 – 14</span>
+          <p>Insomnia Ringan</p>
+        </div>
+
+        <div class="kategori-item">
+          <span>15 – 21</span>
+          <p>Insomnia Sedang</p>
+        </div>
+
+        <div class="kategori-item">
+          <span>22 – 28</span>
+          <p>Insomnia Berat</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TUJUAN -->
+    <div class="about-card mt-4">
+      <h3>Tujuan Sistem</h3>
+
+      <ul>
+        <li>Membantu pengguna melakukan deteksi dini insomnia</li>
+
+        <li>Meningkatkan kesadaran pentingnya kualitas tidur</li>
+
+        <li>Memberikan edukasi mengenai gangguan tidur dan dampaknya</li>
+
+        <li>
+          Menjadi media pendukung sebelum konsultasi dengan tenaga profesional
+        </li>
+      </ul>
+    </div>
+
+    <!-- CATATAN -->
+    <div class="about-card mt-4 warning-card">
+      <h3>Catatan Penting</h3>
+
+      <p>
+        Sistem ini bukan pengganti diagnosis medis profesional. Hasil yang
+        diberikan hanya bersifat deteksi awal berdasarkan jawaban pengguna.
+      </p>
+
+      <p>
+        Jika Anda mengalami gangguan tidur yang berkepanjangan, disarankan untuk
+        berkonsultasi dengan dokter, psikolog, atau tenaga kesehatan terkait.
+      </p>
+    </div>
+
+    <!-- PENGEMBANG -->
+    <div class="about-card mt-4 text-center">
+      <h3>Pengembang Sistem</h3>
+
+      <p>
+        Sistem ini dikembangkan sebagai bagian dari proyek akademik pada bidang
+        <strong>Teknologi Informasi</strong> dengan fokus pada implementasi
+        sistem pakar berbasis web untuk kesehatan digital.
+      </p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

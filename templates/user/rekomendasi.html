@@ -1,0 +1,158 @@
+{% extends "base.html" %} {% block content %}
+
+<section class="rekomendasi-section">
+  <!-- HERO -->
+  <div class="container">
+    <div class="rekomendasi-hero text-center">
+      <span class="rekomendasi-badge">
+        <i class="fa-solid fa-moon"></i>
+        Rekomendasi Tidur Sehat
+      </span>
+
+      <h1 class="rekomendasi-title">
+        Mulai Perbaiki <span>Kualitas Tidur</span> Anda
+      </h1>
+
+      <p class="rekomendasi-desc">
+        Langkah kecil yang dilakukan secara konsisten dapat membantu mengurangi
+        risiko insomnia dan meningkatkan kualitas tidur menjadi lebih baik.
+      </p>
+    </div>
+
+    <!-- GRID REKOMENDASI -->
+    <div class="row g-4 mt-4">
+      <!-- CARD 1 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="rekomendasi-card">
+          <div class="rekomendasi-icon">
+            <i class="fa-solid fa-bed"></i>
+          </div>
+
+          <h3>Jadwal Tidur Konsisten</h3>
+
+          <p>
+            Tidur dan bangun pada jam yang sama setiap hari membantu tubuh
+            membangun ritme sirkadian yang sehat.
+          </p>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="rekomendasi-card">
+          <div class="rekomendasi-icon">
+            <i class="fa-solid fa-mobile-screen"></i>
+          </div>
+
+          <h3>Kurangi Screen Time</h3>
+
+          <p>
+            Hindari penggunaan gadget minimal 30–60 menit sebelum tidur untuk
+            mengurangi paparan cahaya biru.
+          </p>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="rekomendasi-card">
+          <div class="rekomendasi-icon">
+            <i class="fa-solid fa-mug-hot"></i>
+          </div>
+
+          <h3>Batasi Kafein</h3>
+
+          <p>
+            Kurangi konsumsi kopi, teh, dan minuman energi terutama pada malam
+            hari agar tubuh lebih rileks.
+          </p>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="rekomendasi-card">
+          <div class="rekomendasi-icon">
+            <i class="fa-solid fa-brain"></i>
+          </div>
+
+          <h3>Kelola Stres</h3>
+
+          <p>
+            Luangkan waktu untuk relaksasi seperti meditasi, journaling, atau
+            latihan pernapasan sebelum tidur.
+          </p>
+        </div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="rekomendasi-card">
+          <div class="rekomendasi-icon">
+            <i class="fa-solid fa-dumbbell"></i>
+          </div>
+
+          <h3>Aktivitas Fisik</h3>
+
+          <p>
+            Olahraga ringan secara rutin membantu meningkatkan kualitas tidur
+            dan membuat tubuh lebih segar.
+          </p>
+        </div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="rekomendasi-card">
+          <div class="rekomendasi-icon">
+            <i class="fa-solid fa-lightbulb"></i>
+          </div>
+
+          <h3>Ciptakan Suasana Nyaman</h3>
+
+          <p>
+            Gunakan pencahayaan redup dan suasana kamar yang tenang agar tubuh
+            lebih mudah merasa mengantuk.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIPS SECTION -->
+    <div class="tips-wrapper mt-5">
+      <div class="tips-card">
+        <div class="tips-content">
+          <h2>
+            <i class="fa-solid fa-heart"></i>
+            Tips Penting Sebelum Tidur
+          </h2>
+
+          <ul>
+            <li>Hindari tidur siang terlalu lama.</li>
+            <li>Gunakan kasur yang nyaman.</li>
+            <li>Hindari makan berat sebelum tidur.</li>
+            <li>Dengarkan musik relaksasi.</li>
+            <li>Jangan memaksakan tidur ketika belum mengantuk.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="rekomendasi-cta text-center">
+      <h2>Ingin Mengetahui Kondisi Tidur Anda?</h2>
+
+      <p>
+        Lakukan deteksi dini insomnia sekarang dan dapatkan hasil analisis
+        berdasarkan metode sistem pakar.
+      </p>
+
+      <a href="{{ url_for('deteksi') }}" class="rekomendasi-btn">
+        <i class="fa-solid fa-stethoscope"></i>
+        Mulai Deteksi
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

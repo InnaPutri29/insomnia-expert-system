@@ -1,0 +1,155 @@
+{% extends "base.html" %} {% block content %}
+
+<section class="hasil-modern-section">
+  <!-- BACKGROUND -->
+  <div class="hasil-bg-pattern"></div>
+
+  <div class="container">
+    <!-- HEADER -->
+    <div class="hasil-header text-center">
+      <div class="hasil-badge">
+        <i class="fa-solid fa-bed"></i>
+        HASIL ANALISIS INSOMNIA
+      </div>
+
+      <h1 class="hasil-title">Hasil <span>Deteksi</span> Anda</h1>
+
+      <p class="hasil-subtitle">
+        Berikut merupakan hasil analisis berdasarkan jawaban yang Anda berikan
+        menggunakan instrumen <strong>Insomnia Severity Index (ISI)</strong>.
+      </p>
+    </div>
+
+    <!-- CARD UTAMA -->
+    <div class="hasil-main-card">
+      <!-- SCORE -->
+      <div class="score-wrapper">
+        <div class="score-circle">
+          <span>{{ skor }}</span>
+          <small>/ 28</small>
+        </div>
+
+        <div class="score-info">
+          <h3>Skor ISI Anda</h3>
+
+          <div
+            class="kategori-badge {% if kategori == 'Tidak Insomnia' %} kategori-normal {% elif kategori == 'Insomnia Ringan' %} kategori-ringan {% elif kategori == 'Insomnia Sedang' %} kategori-sedang {% elif kategori == 'Insomnia Berat' %} kategori-berat {% endif %}"
+          >
+            {{ kategori }}
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERPRETASI -->
+      <div class="interpretasi-box">
+        <h4>
+          <i class="fa-solid fa-circle-info"></i>
+          Interpretasi Hasil
+        </h4>
+
+        {% if kategori == "Tidak Insomnia" %}
+        <p>
+          Pola tidur Anda masih berada dalam kategori normal dan belum
+          menunjukkan gangguan insomnia yang signifikan. Tetap pertahankan
+          kebiasaan tidur yang sehat, seperti menjaga jadwal tidur yang teratur,
+          mengurangi penggunaan gadget sebelum tidur, dan mengelola stres dengan
+          baik.
+        </p>
+
+        {% elif kategori == "Insomnia Ringan" %}
+        <p>
+          Anda menunjukkan tanda-tanda insomnia ringan. Kondisi ini dapat mulai
+          memengaruhi kualitas tidur dan aktivitas harian. Disarankan untuk
+          memperbaiki sleep hygiene, mengurangi konsumsi kafein, serta menjaga
+          konsistensi waktu tidur setiap hari.
+        </p>
+
+        {% elif kategori == "Insomnia Sedang" %}
+        <p>
+          Tingkat insomnia yang Anda alami sudah cukup mengganggu kualitas hidup
+          dan aktivitas sehari-hari. Disarankan untuk mulai melakukan
+          pengelolaan stres, memperbaiki pola hidup, dan mempertimbangkan
+          konsultasi dengan tenaga profesional apabila kondisi berlanjut.
+        </p>
+
+        {% elif kategori == "Insomnia Berat" %}
+        <p>
+          Hasil menunjukkan adanya insomnia berat yang dapat berdampak
+          signifikan terhadap kesehatan fisik maupun mental. Sangat disarankan
+          untuk berkonsultasi dengan psikolog, dokter, atau tenaga kesehatan
+          profesional agar mendapatkan penanganan yang tepat.
+        </p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- DETAIL ANALISIS -->
+    <div class="row mt-5">
+      <!-- FAKTA -->
+      {% if fakta %}
+      <div class="col-lg-6 mb-4">
+        <div class="analisis-card">
+          <div class="analisis-icon blue">
+            <i class="fa-solid fa-magnifying-glass-chart"></i>
+          </div>
+
+          <h3>Fakta yang Ditemukan</h3>
+
+          <ul class="analisis-list">
+            {% for f in fakta %}
+            <li>{{ f }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- KESIMPULAN -->
+      {% if kesimpulan %}
+      <div class="col-lg-6 mb-4">
+        <div class="analisis-card">
+          <div class="analisis-icon purple">
+            <i class="fa-solid fa-brain"></i>
+          </div>
+
+          <h3>Analisis Sistem</h3>
+
+          <ul class="analisis-list">
+            {% for k in kesimpulan %}
+            <li>{{ k }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- REFERENCE -->
+    <div class="reference-card text-center">
+      <div class="reference-icon">
+        <i class="fa-solid fa-book-medical"></i>
+      </div>
+
+      <p>
+        Sistem menggunakan instrumen standar
+        <strong>Insomnia Severity Index (ISI)</strong>
+        sebagai dasar penilaian tingkat insomnia.
+      </p>
+    </div>
+
+    <!-- BUTTON -->
+    <div class="hasil-button-group text-center">
+      <a href="/deteksi" class="hasil-btn primary-btn">
+        <i class="fa-solid fa-rotate-right"></i>
+        Ulangi Deteksi
+      </a>
+
+      <a href="/" class="hasil-btn secondary-btn">
+        <i class="fa-solid fa-house"></i>
+        Kembali ke Beranda
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
