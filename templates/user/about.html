@@ -1,175 +1,355 @@
 {% extends "base.html" %} {% block content %}
 
-<section class="about-section">
+<!-- ================= HERO ABOUT ================= -->
+<section class="about-hero">
   <div class="container">
-    <!-- HEADER -->
-    <div class="text-center about-header">
-      <h1 class="about-title">Tentang Sistem</h1>
-
-      <p class="about-subtitle">
-        Sistem Pakar Deteksi Dini Insomnia berbasis web yang membantu pengguna
-        mengenali tingkat gangguan tidur secara cepat, mandiri, dan edukatif.
-      </p>
-    </div>
-
-    <!-- TENTANG SISTEM -->
-    <div class="about-card">
-      <h3>Apa Itu Sistem Ini?</h3>
-
-      <p>
-        Sistem ini merupakan <strong>Sistem Pakar Deteksi Dini Insomnia</strong>
-        berbasis website yang dikembangkan untuk membantu pengguna melakukan
-        identifikasi awal terhadap gangguan tidur insomnia.
-      </p>
-
-      <p>
-        Pengguna dapat melakukan proses deteksi dengan menjawab beberapa
-        pertanyaan terkait kualitas tidur yang dialami dalam 1 bulan terakhir.
-        Setelah proses analisis dilakukan, sistem akan memberikan hasil berupa
-        tingkat keparahan insomnia beserta penjelasannya.
-      </p>
-    </div>
-
-    <!-- ISI -->
-    <div class="about-card mt-4">
-      <h3>Instrumen yang Digunakan</h3>
-
-      <p>
-        Sistem ini menggunakan instrumen
-        <strong>Insomnia Severity Index (ISI)</strong>, yaitu alat ukur yang
-        telah digunakan secara luas dalam penelitian dan dunia kesehatan untuk
-        mengukur tingkat keparahan insomnia.
-      </p>
-
-      <p>ISI terdiri dari <strong>7 pertanyaan utama</strong> yang mencakup:</p>
-
-      <ul>
-        <li>Kesulitan memulai tidur</li>
-        <li>Kesulitan mempertahankan tidur</li>
-        <li>Bangun terlalu pagi</li>
-        <li>Kepuasan terhadap kualitas tidur</li>
-        <li>Gangguan aktivitas siang hari</li>
-        <li>Gangguan yang terlihat oleh orang lain</li>
-        <li>Tingkat kekhawatiran terhadap masalah tidur</li>
-      </ul>
-
-      <div class="reference-box">
-        <strong>Referensi:</strong><br />
-
-        Bastien, C. H., Vallières, A., & Morin, C. M. (2001). <br />
-        Validation of the Insomnia Severity Index as an outcome measure for
-        insomnia research.
-      </div>
-    </div>
-
-    <!-- METODE -->
-    <div class="about-card mt-4">
-      <h3>Metode Forward Chaining</h3>
-
-      <p>
-        Sistem ini menerapkan metode
-        <strong>Forward Chaining</strong>, yaitu metode penalaran berbasis
-        aturan (rule-based reasoning) yang bekerja dengan memulai dari
-        fakta-fakta yang diberikan oleh pengguna.
-      </p>
-
-      <p>
-        Jawaban pengguna akan diproses menjadi skor tertentu, kemudian sistem
-        melakukan inferensi untuk menentukan kategori tingkat insomnia sesuai
-        aturan yang telah ditentukan.
-      </p>
-
-      <div class="flow-box">
-        <div class="flow-item">
-          <h4>Input</h4>
-          <p>Jawaban pengguna dari 7 pertanyaan ISI</p>
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-6">
+        <div class="about-badge">
+          <i class="fa-solid fa-circle-info"></i>
+          Tentang Insomnify
         </div>
 
-        <div class="flow-item">
-          <h4>Proses</h4>
-          <p>Perhitungan skor & inferensi Forward Chaining</p>
-        </div>
+        <h1>
+          Sistem Pakar <span>Deteksi Dini Insomnia</span> Berbasis Website
+        </h1>
 
-        <div class="flow-item">
-          <h4>Output</h4>
-          <p>Hasil kategori tingkat insomnia pengguna</p>
+        <p>
+          Insomnify hadir sebagai platform kesehatan digital yang membantu
+          pengguna mengenali tingkat gangguan insomnia secara mandiri,
+          interaktif, dan edukatif menggunakan metode sistem pakar berbasis
+          Forward Chaining.
+        </p>
+
+        <div class="about-hero-btn">
+          <a href="{{ url_for('deteksi') }}" class="about-btn-primary">
+            <i class="fa-solid fa-stethoscope"></i>
+            Mulai Deteksi
+          </a>
+
+          <a href="{{ url_for('edukasi') }}" class="about-btn-secondary">
+            <i class="fa-solid fa-book-open"></i>
+            Pelajari Insomnia
+          </a>
         </div>
       </div>
-    </div>
 
-    <!-- KATEGORI -->
-    <div class="about-card mt-4">
-      <h3>Kategori Tingkat Insomnia</h3>
+      <div class="col-lg-6 text-center">
+        <img
+          src="{{ url_for('static', filename='image/about.jpg') }}"
+          alt="About Insomnify"
+          class="about-hero-img"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FITUR ================= -->
+<section class="about-feature-section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Mengapa Menggunakan Insomnify?</h2>
 
       <p>
-        Hasil deteksi akan dibagi menjadi beberapa kategori berdasarkan total
-        skor ISI:
+        Sistem dirancang untuk memberikan pengalaman deteksi insomnia yang
+        mudah, cepat, dan nyaman digunakan.
       </p>
+    </div>
 
-      <div class="kategori-wrapper">
-        <div class="kategori-item">
-          <span>0 – 7</span>
-          <p>Tidak Insomnia</p>
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <div class="about-feature-card">
+          <i class="fa-solid fa-brain"></i>
+
+          <h3>Sistem Pakar</h3>
+
+          <p>
+            Menggunakan metode Forward Chaining untuk membantu proses analisis
+            tingkat insomnia pengguna.
+          </p>
         </div>
+      </div>
 
-        <div class="kategori-item">
-          <span>8 – 14</span>
-          <p>Insomnia Ringan</p>
+      <div class="col-lg-4 col-md-6">
+        <div class="about-feature-card">
+          <i class="fa-solid fa-clock"></i>
+
+          <h3>Deteksi Cepat</h3>
+
+          <p>
+            Pengguna dapat mengetahui hasil deteksi insomnia hanya dalam
+            beberapa menit.
+          </p>
         </div>
+      </div>
 
-        <div class="kategori-item">
-          <span>15 – 21</span>
-          <p>Insomnia Sedang</p>
-        </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="about-feature-card">
+          <i class="fa-solid fa-book-medical"></i>
 
-        <div class="kategori-item">
-          <span>22 – 28</span>
-          <p>Insomnia Berat</p>
+          <h3>Edukasi Interaktif</h3>
+
+          <p>
+            Menyediakan informasi lengkap mengenai penyebab, gejala, dan dampak
+            insomnia.
+          </p>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- TUJUAN -->
-    <div class="about-card mt-4">
-      <h3>Tujuan Sistem</h3>
+<!-- ================= TENTANG SISTEM ================= -->
+<section class="tentang-system-section">
+  <div class="container">
+    <div class="modern-about-card">
+      <div class="about-icon-box">
+        <i class="fa-solid fa-laptop-medical"></i>
+      </div>
 
-      <ul>
-        <li>Membantu pengguna melakukan deteksi dini insomnia</li>
+      <div>
+        <h3>Apa Itu Insomnify?</h3>
 
-        <li>Meningkatkan kesadaran pentingnya kualitas tidur</li>
+        <p>
+          Insomnify merupakan sistem pakar berbasis website yang dikembangkan
+          untuk membantu pengguna melakukan identifikasi awal terhadap gangguan
+          tidur insomnia berdasarkan gejala yang dialami.
+        </p>
 
-        <li>Memberikan edukasi mengenai gangguan tidur dan dampaknya</li>
-
-        <li>
-          Menjadi media pendukung sebelum konsultasi dengan tenaga profesional
-        </li>
-      </ul>
+        <p>
+          Pengguna akan menjawab beberapa pertanyaan terkait kualitas tidur,
+          kemudian sistem akan melakukan analisis untuk menentukan tingkat
+          keparahan insomnia secara otomatis.
+        </p>
+      </div>
     </div>
 
-    <!-- CATATAN -->
-    <div class="about-card mt-4 warning-card">
-      <h3>Catatan Penting</h3>
+    <div class="modern-about-card">
+      <div class="about-icon-box">
+        <i class="fa-solid fa-clipboard-check"></i>
+      </div>
+
+      <div>
+        <h3>Instrumen ISI</h3>
+
+        <p>
+          Sistem menggunakan instrumen
+          <strong>Insomnia Severity Index (ISI)</strong> yang terdiri dari 7
+          pertanyaan utama untuk mengevaluasi tingkat keparahan insomnia.
+        </p>
+
+        <div class="isi-list">
+          <div class="isi-item">
+            <i class="fa-solid fa-check"></i>
+            Kesulitan memulai tidur
+          </div>
+
+          <div class="isi-item">
+            <i class="fa-solid fa-check"></i>
+            Gangguan mempertahankan tidur
+          </div>
+
+          <div class="isi-item">
+            <i class="fa-solid fa-check"></i>
+            Bangun terlalu pagi
+          </div>
+
+          <div class="isi-item">
+            <i class="fa-solid fa-check"></i>
+            Kepuasan kualitas tidur
+          </div>
+
+          <div class="isi-item">
+            <i class="fa-solid fa-check"></i>
+            Gangguan aktivitas harian
+          </div>
+
+          <div class="isi-item">
+            <i class="fa-solid fa-check"></i>
+            Tingkat kekhawatiran terhadap tidur
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FORWARD CHAINING ================= -->
+<section class="flow-section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Metode Forward Chaining</h2>
 
       <p>
-        Sistem ini bukan pengganti diagnosis medis profesional. Hasil yang
-        diberikan hanya bersifat deteksi awal berdasarkan jawaban pengguna.
-      </p>
-
-      <p>
-        Jika Anda mengalami gangguan tidur yang berkepanjangan, disarankan untuk
-        berkonsultasi dengan dokter, psikolog, atau tenaga kesehatan terkait.
+        Sistem bekerja menggunakan pendekatan inferensi berbasis aturan untuk
+        menentukan hasil deteksi insomnia.
       </p>
     </div>
 
-    <!-- PENGEMBANG -->
-    <div class="about-card mt-4 text-center">
-      <h3>Pengembang Sistem</h3>
+    <div class="flow-wrapper">
+      <div class="flow-card">
+        <div class="flow-number">01</div>
+
+        <i class="fa-solid fa-file-circle-question"></i>
+
+        <h3>Input</h3>
+
+        <p>
+          Pengguna menjawab pertanyaan terkait kualitas tidur berdasarkan
+          instrumen ISI.
+        </p>
+      </div>
+
+      <div class="flow-arrow">
+        <i class="fa-solid fa-arrow-right"></i>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-number">02</div>
+
+        <i class="fa-solid fa-gears"></i>
+
+        <h3>Proses</h3>
+
+        <p>
+          Sistem menghitung skor dan melakukan inferensi menggunakan metode
+          Forward Chaining.
+        </p>
+      </div>
+
+      <div class="flow-arrow">
+        <i class="fa-solid fa-arrow-right"></i>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-number">03</div>
+
+        <i class="fa-solid fa-chart-column"></i>
+
+        <h3>Output</h3>
+
+        <p>
+          Sistem memberikan hasil kategori tingkat insomnia beserta
+          penjelasannya.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KATEGORI ================= -->
+<section class="kategori-section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Kategori Tingkat Insomnia</h2>
 
       <p>
-        Sistem ini dikembangkan sebagai bagian dari proyek akademik pada bidang
-        <strong>Teknologi Informasi</strong> dengan fokus pada implementasi
-        sistem pakar berbasis web untuk kesehatan digital.
+        Hasil deteksi dibedakan berdasarkan total skor Insomnia Severity Index.
       </p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6">
+        <div class="kategori-modern-card">
+          <span>0 - 7</span>
+          <h3>Tidak Insomnia</h3>
+          <p>Kondisi tidur masih dalam kategori normal.</p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="kategori-modern-card">
+          <span>8 - 14</span>
+          <h3>Insomnia Ringan</h3>
+          <p>Mulai terdapat gangguan tidur ringan.</p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="kategori-modern-card">
+          <span>15 - 21</span>
+          <h3>Insomnia Sedang</h3>
+          <p>Gangguan tidur mulai memengaruhi aktivitas harian.</p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="kategori-modern-card">
+          <span>22 - 28</span>
+          <h3>Insomnia Berat</h3>
+          <p>Gangguan tidur berat dan membutuhkan perhatian lebih lanjut.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TUJUAN ================= -->
+<section class="tujuan-section">
+  <div class="container">
+    <div class="tujuan-box">
+      <div class="section-title text-start">
+        <h2>Tujuan Pengembangan Sistem</h2>
+
+        <p>
+          Insomnify dikembangkan untuk meningkatkan kesadaran masyarakat
+          terhadap pentingnya kualitas tidur.
+        </p>
+      </div>
+
+      <div class="row g-4 mt-2">
+        <div class="col-md-6">
+          <div class="tujuan-item">
+            <i class="fa-solid fa-check"></i>
+            Membantu pengguna melakukan deteksi dini insomnia
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="tujuan-item">
+            <i class="fa-solid fa-check"></i>
+            Memberikan edukasi kesehatan tidur
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="tujuan-item">
+            <i class="fa-solid fa-check"></i>
+            Meningkatkan kesadaran pentingnya kualitas tidur
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="tujuan-item">
+            <i class="fa-solid fa-check"></i>
+            Menjadi media pendukung sebelum konsultasi profesional
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WARNING ================= -->
+<section class="warning-section">
+  <div class="container">
+    <div class="warning-modern-card">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+
+      <div>
+        <h3>Catatan Penting</h3>
+
+        <p>
+          Sistem ini bukan pengganti diagnosis medis profesional. Hasil yang
+          diberikan hanya bersifat deteksi awal berdasarkan jawaban pengguna.
+        </p>
+
+        <p>
+          Jika mengalami gangguan tidur berkepanjangan, disarankan untuk
+          berkonsultasi dengan dokter atau tenaga kesehatan profesional.
+        </p>
+      </div>
     </div>
   </div>
 </section>

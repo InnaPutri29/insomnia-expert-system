@@ -1,118 +1,263 @@
 {% extends "base.html" %} {% block content %}
 
-<section class="edukasi-section">
+<!-- ================= HERO EDUKASI ================= -->
+<section class="edukasi-hero">
   <div class="container">
-    <h1 class="text-center mb-5">Edukasi Tentang Insomnia</h1>
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-6">
+        <div class="hero-badge">
+          <i class="fa-solid fa-moon"></i>
+          Edukasi Kesehatan Tidur
+        </div>
 
-    <!-- PENGERTIAN -->
-    <div class="edukasi-card">
-      <h3>Apa Itu Insomnia?</h3>
+        <h1>Kenali <span>Insomnia</span> dan Tingkatkan Kualitas Tidur Anda</h1>
 
-      <p>
-        Insomnia merupakan gangguan tidur yang ditandai dengan kesulitan untuk
-        memulai tidur, mempertahankan tidur, atau bangun terlalu pagi dan sulit
-        untuk tidur kembali. Kondisi ini dapat menyebabkan tubuh tidak
-        mendapatkan kualitas istirahat yang optimal sehingga berdampak pada
-        aktivitas sehari-hari.
-      </p>
+        <p>
+          Insomnia bukan hanya tentang sulit tidur, tetapi juga dapat
+          memengaruhi kesehatan fisik, mental, dan produktivitas sehari-hari.
+          Pelajari penyebab, gejala, dampak, dan cara mengatasinya secara tepat.
+        </p>
 
-      <p>
-        Insomnia dapat dialami oleh siapa saja, baik remaja, mahasiswa, pekerja,
-        maupun orang lanjut usia. Jika berlangsung dalam waktu lama, insomnia
-        dapat memengaruhi kesehatan fisik maupun mental.
-      </p>
+        <div class="hero-edukasi-btn">
+          <a href="{{ url_for('deteksi') }}" class="btn-edukasi-primary">
+            <i class="fa-solid fa-stethoscope"></i>
+            Mulai Deteksi
+          </a>
+
+          <a href="{{ url_for('rekomendasi') }}" class="btn-edukasi-secondary">
+            <i class="fa-solid fa-heart-pulse"></i>
+            Lihat Rekomendasi
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-6 text-center">
+        <img
+          src="{{ url_for('static', filename='image/edukasi.jpg') }}"
+          alt="Edukasi Insomnia"
+          class="hero-edukasi-img"
+        />
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- PENYEBAB -->
-    <div class="edukasi-card mt-4">
-      <h3>Penyebab Insomnia</h3>
-
-      <p>Insomnia dapat dipengaruhi oleh berbagai faktor, di antaranya:</p>
-
-      <ul>
-        <li>Stres dan tekanan pikiran berlebihan</li>
-        <li>Kecemasan atau gangguan emosional</li>
-        <li>Pola tidur yang tidak teratur</li>
-        <li>Penggunaan gadget sebelum tidur</li>
-        <li>Konsumsi kafein atau minuman berenergi</li>
-        <li>Kurangnya aktivitas fisik</li>
-        <li>Lingkungan tidur yang tidak nyaman</li>
-      </ul>
-    </div>
-
-    <!-- GEJALA -->
-    <div class="edukasi-card mt-4">
-      <h3>Gejala Insomnia</h3>
-
-      <p>Beberapa gejala umum insomnia meliputi:</p>
-
-      <ul>
-        <li>Sulit memulai tidur pada malam hari</li>
-        <li>Sering terbangun di tengah malam</li>
-        <li>Bangun terlalu pagi</li>
-        <li>Tidur terasa tidak nyenyak</li>
-        <li>Tubuh terasa lelah saat bangun</li>
-        <li>Mudah mengantuk di siang hari</li>
-        <li>Sulit berkonsentrasi</li>
-        <li>Emosi menjadi lebih sensitif atau mudah marah</li>
-      </ul>
-    </div>
-
-    <!-- DAMPAK -->
-    <div class="edukasi-card mt-4">
-      <h3>Dampak Insomnia</h3>
-
+<!-- ================= FAKTA INSOMNIA ================= -->
+<section class="fakta-section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Fakta Tentang Insomnia</h2>
       <p>
-        Jika tidak ditangani dengan baik, insomnia dapat menyebabkan berbagai
-        dampak, seperti:
-      </p>
-
-      <ul>
-        <li>Penurunan konsentrasi dan daya ingat</li>
-        <li>Penurunan performa akademik atau pekerjaan</li>
-        <li>Mudah merasa lelah dan mengantuk</li>
-        <li>Meningkatkan risiko stres dan kecemasan</li>
-        <li>Menurunkan kualitas hidup</li>
-      </ul>
-    </div>
-
-    <!-- PENCEGAHAN -->
-    <div class="edukasi-card mt-4">
-      <h3>Cara Mencegah dan Mengatasi Insomnia</h3>
-
-      <ul>
-        <li>Tidur dan bangun pada jam yang sama setiap hari</li>
-        <li>Mengurangi penggunaan HP atau laptop sebelum tidur</li>
-        <li>Menghindari konsumsi kafein pada malam hari</li>
-        <li>Menciptakan suasana kamar yang nyaman</li>
-        <li>Melakukan relaksasi sebelum tidur</li>
-        <li>Berolahraga secara rutin</li>
-        <li>Mengelola stres dengan baik</li>
-      </ul>
-    </div>
-
-    <!-- ISI -->
-    <div class="edukasi-card mt-4">
-      <h3>Tentang Instrumen ISI</h3>
-
-      <p>
-        Sistem ini menggunakan metode penilaian
-        <strong>Insomnia Severity Index (ISI)</strong>, yaitu instrumen yang
-        digunakan untuk mengukur tingkat keparahan insomnia berdasarkan persepsi
-        pengguna terhadap kualitas tidur yang dialami selama 1 bulan terakhir.
-      </p>
-
-      <p>
-        Instrumen ISI terdiri dari 7 pertanyaan utama yang mencakup kesulitan
-        tidur, kepuasan tidur, gangguan aktivitas harian, serta tingkat
-        kekhawatiran terhadap masalah tidur.
+        Gangguan tidur dapat memengaruhi kualitas hidup jika tidak ditangani
+        dengan baik.
       </p>
     </div>
 
-    <!-- REFERENSI -->
-    <div class="edukasi-card mt-4">
-      <h3>Referensi</h3>
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6">
+        <div class="fakta-card">
+          <i class="fa-solid fa-bed"></i>
+          <h3>Sulit Tidur</h3>
+          <p>
+            Kesulitan memulai tidur menjadi gejala utama insomnia yang sering
+            dialami banyak orang.
+          </p>
+        </div>
+      </div>
 
+      <div class="col-lg-3 col-md-6">
+        <div class="fakta-card">
+          <i class="fa-solid fa-brain"></i>
+          <h3>Kesehatan Mental</h3>
+          <p>
+            Insomnia dapat meningkatkan risiko stres, kecemasan, dan gangguan
+            emosional.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="fakta-card">
+          <i class="fa-solid fa-heart-pulse"></i>
+          <h3>Kesehatan Fisik</h3>
+          <p>
+            Kurang tidur dapat memengaruhi daya tahan tubuh dan kesehatan
+            jantung.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="fakta-card">
+          <i class="fa-solid fa-user-clock"></i>
+          <h3>Produktivitas</h3>
+          <p>
+            Tidur yang buruk dapat menurunkan konsentrasi dan performa harian.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INFORMASI ================= -->
+<section class="informasi-section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Informasi Lengkap Insomnia</h2>
+      <p>Pelajari berbagai aspek penting mengenai gangguan insomnia.</p>
+    </div>
+
+    <div class="info-modern-card">
+      <div class="info-icon">
+        <i class="fa-solid fa-circle-info"></i>
+      </div>
+
+      <div>
+        <h3>Apa Itu Insomnia?</h3>
+
+        <p>
+          Insomnia merupakan gangguan tidur yang menyebabkan seseorang sulit
+          tidur, sering terbangun di malam hari, atau bangun terlalu pagi dan
+          sulit tidur kembali. Kondisi ini dapat menyebabkan tubuh tidak
+          mendapatkan kualitas istirahat yang optimal.
+        </p>
+
+        <p>
+          Jika terjadi dalam jangka panjang, insomnia dapat memengaruhi
+          kesehatan fisik, mental, serta aktivitas sehari-hari.
+        </p>
+      </div>
+    </div>
+
+    <div class="info-modern-card">
+      <div class="info-icon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+
+      <div>
+        <h3>Penyebab Insomnia</h3>
+
+        <ul class="modern-list">
+          <li>Stres dan tekanan pikiran berlebihan</li>
+          <li>Kecemasan dan gangguan emosional</li>
+          <li>Pola tidur yang tidak teratur</li>
+          <li>Penggunaan gadget sebelum tidur</li>
+          <li>Konsumsi kafein berlebihan</li>
+          <li>Kurangnya aktivitas fisik</li>
+          <li>Lingkungan tidur yang tidak nyaman</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-modern-card">
+      <div class="info-icon">
+        <i class="fa-solid fa-notes-medical"></i>
+      </div>
+
+      <div>
+        <h3>Gejala Umum Insomnia</h3>
+
+        <ul class="modern-list">
+          <li>Sulit memulai tidur</li>
+          <li>Sering terbangun di malam hari</li>
+          <li>Bangun terlalu pagi</li>
+          <li>Tidur terasa tidak nyenyak</li>
+          <li>Mudah lelah dan mengantuk</li>
+          <li>Sulit berkonsentrasi</li>
+          <li>Mudah marah dan sensitif</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-modern-card">
+      <div class="info-icon">
+        <i class="fa-solid fa-heart-crack"></i>
+      </div>
+
+      <div>
+        <h3>Dampak Insomnia</h3>
+
+        <ul class="modern-list">
+          <li>Penurunan konsentrasi dan daya ingat</li>
+          <li>Produktivitas menurun</li>
+          <li>Mudah merasa lelah</li>
+          <li>Meningkatkan risiko stres dan kecemasan</li>
+          <li>Menurunkan kualitas hidup</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ISI SECTION ================= -->
+<section class="isi-section">
+  <div class="container">
+    <div class="isi-box">
+      <div class="row align-items-center gy-4">
+        <div class="col-lg-7">
+          <div class="isi-content">
+            <span class="isi-badge">
+              <i class="fa-solid fa-clipboard-check"></i>
+              Instrumen ISI
+            </span>
+
+            <h2>Insomnia Severity Index (ISI)</h2>
+
+            <p>
+              Sistem Insomnify menggunakan metode penilaian
+              <strong>Insomnia Severity Index (ISI)</strong>, yaitu instrumen
+              yang digunakan untuk mengukur tingkat keparahan insomnia
+              berdasarkan pengalaman tidur pengguna selama satu bulan terakhir.
+            </p>
+
+            <p>
+              ISI terdiri dari 7 pertanyaan utama yang mengevaluasi kesulitan
+              tidur, kepuasan tidur, gangguan aktivitas harian, dan tingkat
+              kekhawatiran terhadap masalah tidur.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-5 text-center">
+          <div class="isi-score-box">
+            <h3>Skala Penilaian</h3>
+
+            <div class="score-item">
+              <span>0 - 7</span>
+              <p>Tidak Insomnia</p>
+            </div>
+
+            <div class="score-item">
+              <span>8 - 14</span>
+              <p>Insomnia Ringan</p>
+            </div>
+
+            <div class="score-item">
+              <span>15 - 21</span>
+              <p>Insomnia Sedang</p>
+            </div>
+
+            <div class="score-item">
+              <span>22 - 28</span>
+              <p>Insomnia Berat</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REFERENSI ================= -->
+<section class="referensi-section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Referensi</h2>
+      <p>Sumber ilmiah yang digunakan dalam pengembangan sistem.</p>
+    </div>
+
+    <div class="referensi-card">
       <p>
         Bastien, C. H., Vallières, A., & Morin, C. M. (2001). Validation of the
         Insomnia Severity Index as an outcome measure for insomnia research.
