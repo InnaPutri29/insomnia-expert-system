@@ -1,8 +1,6 @@
 import pymysql
-pymysql.install_as_MySQLdb()
-
+import os
 from flask import Flask, render_template, request, flash, redirect, url_for, session
-from flask_mysqldb import MySQL
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from config import Config
 from inference.forward_chaining import hitung_insomnia
@@ -13,7 +11,17 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 # --- INISIALISASI DATABASE ---
-mysql = MySQL(app)
+# Fungsi ini menggantikan peran flask_mysqldb
+def get_db_connection():
+    return pymysql.connect(
+        host=os.environ.get('DB_HOST', 'insomnify-3223f801-db-insomnify.f.aivencloud.com'),
+        user=os.environ.get('DB_USER', 'avnadmin'),
+        password=os.environ.get('DB_PASSWORD'), # Akan ditarik dari Environment Variables Vercel
+        database=os.environ.get('DB_NAME', 'defaultdb'),
+        port=int(os.environ.get('DB_PORT', 25667)),
+        cursorclass=pymysql.cursors.DictCursor, # Mengembalikan data dalam bentuk Dictionary
+        ssl={'ca': 'ca.pem'} # Wajib untuk Aiven
+    )
 
 # --- KONFIGURASI LOGIN MANAGER ---
 login_manager = LoginManager(app)
@@ -35,10 +43,12 @@ class User(UserMixin):
 
 @login_manager.user_loader
 def load_user(user_id):
-    cur = mysql.connection.cursor()
+    conn = get_db_connection()
+    cur = conn.cursor()
     cur.execute("SELECT id_user, username, role FROM users WHERE id_user = %s", (user_id,))
     data = cur.fetchone()
     cur.close()
+    conn.close()
     if data:
         return User(data['id_user'], data['username'], data['role'])
     return None
@@ -69,31 +79,34 @@ def rekomendasi():
 @app.route("/deteksi")
 @login_required
 def deteksi():
-    cur = mysql.connection.cursor()
+    conn = get_db_connection()
+    cur = conn.cursor()
     cur.execute("SELECT * FROM gejala ORDER BY id_gejala ASC")
     gejala = cur.fetchall()
     cur.close()
+    conn.close()
     return render_template("user/deteksi.html", gejala=gejala)
 
 @app.route('/proses_deteksi', methods=['POST'])
 @login_required
 def proses_deteksi():
-    cur = mysql.connection.cursor()
+    conn = get_db_connection()
+    cur = conn.cursor()
     cur.execute("SELECT id_gejala FROM gejala ORDER BY id_gejala ASC")
     gejala_db = cur.fetchall()
-    cur.close()
-
+    
     jawaban = []
     for g in gejala_db:
         nilai = request.form.get(f"q{g['id_gejala']}")
         if nilai is None:
             flash("Semua pertanyaan harus dijawab!", "danger")
+            cur.close()
+            conn.close()
             return redirect(url_for('deteksi'))
         jawaban.append(int(nilai))
 
     total_skor, hasil, fakta, kesimpulan = hitung_insomnia(jawaban)
 
-    cur = mysql.connection.cursor()
     try:
         cur.execute(
             """INSERT INTO riwayat_deteksi 
@@ -101,13 +114,14 @@ def proses_deteksi():
                VALUES (%s, %s, %s, %s)""",
             (current_user.username, total_skor, hasil, datetime.now())
         )
-        mysql.connection.commit()
+        conn.commit()
         flash("Hasil deteksi berhasil disimpan!", "success")
     except Exception as e:
-        mysql.connection.rollback()
+        conn.rollback()
         flash(f"Gagal menyimpan riwayat: {str(e)}", "danger")
     finally:
         cur.close()
+        conn.close()
 
     return render_template("user/hasil.html", skor=total_skor, kategori=hasil, fakta=fakta, kesimpulan=kesimpulan)
 
@@ -117,10 +131,12 @@ def riwayat():
     if current_user.role == 'admin':
         return redirect(url_for('admin_riwayat'))
 
-    cur = mysql.connection.cursor()
+    conn = get_db_connection()
+    cur = conn.cursor()
     cur.execute("SELECT * FROM riwayat_deteksi WHERE nama_user = %s ORDER BY tanggal_deteksi DESC", (current_user.username,))
     riwayat_data = cur.fetchall()
     cur.close()
+    conn.close()
     return render_template("user/riwayat.html", riwayat=riwayat_data)
 
 # ===============================
@@ -140,17 +156,20 @@ def register():
             return render_template('register.html')
 
         hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-        cur = mysql.connection.cursor()
+        
+        conn = get_db_connection()
+        cur = conn.cursor()
         try:
             cur.execute("INSERT INTO users (username, email, password, role) VALUES (%s, %s, %s, 'user')", (username, email, hashed))
-            mysql.connection.commit()
+            conn.commit()
             flash('Registrasi berhasil! Silakan login.', 'success')
             return redirect(url_for('login'))
         except:
-            mysql.connection.rollback()
+            conn.rollback()
             flash('Username/Email sudah terdaftar.', 'danger')
         finally:
             cur.close()
+            conn.close()
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -161,10 +180,12 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
 
-        cur = mysql.connection.cursor()
+        conn = get_db_connection()
+        cur = conn.cursor()
         cur.execute("SELECT * FROM users WHERE username = %s", (username,))
         user_data = cur.fetchone()
         cur.close()
+        conn.close()
 
         if user_data:
             db_password = user_data['password']
@@ -197,7 +218,9 @@ def logout():
 @login_required
 def admin_dashboard():
     if current_user.role != 'admin': return redirect(url_for('home'))
-    cur = mysql.connection.cursor()
+    
+    conn = get_db_connection()
+    cur = conn.cursor()
     
     stats = {}
     kategori = ['Tidak Insomnia', 'Insomnia Ringan', 'Insomnia Sedang', 'Insomnia Berat']
@@ -210,7 +233,9 @@ def admin_dashboard():
 
     cur.execute("SELECT * FROM riwayat_deteksi ORDER BY tanggal_deteksi DESC LIMIT 5")
     riwayat_recent = cur.fetchall()
+    
     cur.close()
+    conn.close()
 
     return render_template("admin/dashboard.html", 
         normal=stats['Tidak Insomnia'], ringan=stats['Insomnia Ringan'], 
@@ -221,10 +246,14 @@ def admin_dashboard():
 @login_required
 def admin_manage_deteksi():
     if current_user.role != 'admin': return redirect(url_for('home'))
-    cur = mysql.connection.cursor()
+    
+    conn = get_db_connection()
+    cur = conn.cursor()
     cur.execute("SELECT * FROM gejala ORDER BY id_gejala ASC")
     gejala_list = cur.fetchall()
     cur.close()
+    conn.close()
+    
     return render_template("admin/manage_deteksi.html", pertanyaan=gejala_list)
 
 @app.route("/admin/add-gejala", methods=['POST'])
@@ -235,16 +264,18 @@ def admin_add_gejala():
     pertanyaan = request.form.get('pertanyaan')
     kategori = request.form.get('kategori')
     
-    cur = mysql.connection.cursor()
+    conn = get_db_connection()
+    cur = conn.cursor()
     try:
         cur.execute("INSERT INTO gejala (kode_gejala, pertanyaan, kategori, bobot) VALUES (%s, %s, %s, 0)", (kode, pertanyaan, kategori))
-        mysql.connection.commit()
+        conn.commit()
         flash("Gejala berhasil ditambahkan!", "success")
     except Exception as e:
-        mysql.connection.rollback()
+        conn.rollback()
         flash(f"Gagal: {str(e)}", "danger")
     finally:
         cur.close()
+        conn.close()
     return redirect(url_for('admin_manage_deteksi'))
 
 @app.route("/admin/edit-gejala/<int:id>", methods=['POST'])
@@ -255,26 +286,30 @@ def admin_edit_gejala(id):
     pertanyaan = request.form.get('pertanyaan')
     kategori = request.form.get('kategori')
     
-    cur = mysql.connection.cursor()
+    conn = get_db_connection()
+    cur = conn.cursor()
     try:
         cur.execute("UPDATE gejala SET kode_gejala=%s, pertanyaan=%s, kategori=%s WHERE id_gejala=%s", (kode, pertanyaan, kategori, id))
-        mysql.connection.commit()
+        conn.commit()
         flash("Gejala berhasil diperbarui!", "success")
     except Exception as e:
-        mysql.connection.rollback()
+        conn.rollback()
         flash(f"Gagal: {str(e)}", "danger")
     finally:
         cur.close()
+        conn.close()
     return redirect(url_for('admin_manage_deteksi'))
 
 @app.route("/admin/delete-gejala/<int:id>")
 @login_required
 def admin_delete_gejala(id):
     if current_user.role != 'admin': return redirect(url_for('home'))
-    cur = mysql.connection.cursor()
+    conn = get_db_connection()
+    cur = conn.cursor()
     cur.execute("DELETE FROM gejala WHERE id_gejala = %s", (id,))
-    mysql.connection.commit()
+    conn.commit()
     cur.close()
+    conn.close()
     flash("Gejala dihapus.", "success")
     return redirect(url_for('admin_manage_deteksi'))
 
@@ -282,20 +317,24 @@ def admin_delete_gejala(id):
 @login_required
 def admin_manage_pengguna():
     if current_user.role != 'admin': return redirect(url_for('home'))
-    cur = mysql.connection.cursor()
+    conn = get_db_connection()
+    cur = conn.cursor()
     cur.execute("SELECT id_user, username, email, role FROM users")
     users_list = cur.fetchall()
     cur.close()
+    conn.close()
     return render_template("admin/manage_pengguna.html", users=users_list)
 
 @app.route("/admin/delete-user/<int:id>")
 @login_required
 def admin_delete_user(id):
     if current_user.role != 'admin': return redirect(url_for('home'))
-    cur = mysql.connection.cursor()
+    conn = get_db_connection()
+    cur = conn.cursor()
     cur.execute("DELETE FROM users WHERE id_user = %s", (id,))
-    mysql.connection.commit()
+    conn.commit()
     cur.close()
+    conn.close()
     flash("Pengguna dihapus.", "success")
     return redirect(url_for('admin_manage_pengguna'))
 
@@ -303,20 +342,24 @@ def admin_delete_user(id):
 @login_required
 def admin_riwayat():
     if current_user.role != 'admin': return redirect(url_for('home'))
-    cur = mysql.connection.cursor()
+    conn = get_db_connection()
+    cur = conn.cursor()
     cur.execute("SELECT * FROM riwayat_deteksi ORDER BY tanggal_deteksi DESC")
     riwayat_all = cur.fetchall()
     cur.close()
+    conn.close()
     return render_template("admin/riwayat_deteksi.html", riwayat=riwayat_all)
 
 @app.route("/admin/delete-riwayat/<int:id>")
 @login_required
 def admin_delete_riwayat(id):
     if current_user.role != 'admin': return redirect(url_for('home'))
-    cur = mysql.connection.cursor()
+    conn = get_db_connection()
+    cur = conn.cursor()
     cur.execute("DELETE FROM riwayat_deteksi WHERE id_riwayat = %s", (id,))
-    mysql.connection.commit()
+    conn.commit()
     cur.close()
+    conn.close()
     flash("Riwayat dihapus.", "success")
     return redirect(url_for('admin_riwayat'))
 
