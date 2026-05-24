@@ -1,12 +1,4 @@
-import socket
-
-old_getaddrinfo = socket.getaddrinfo
-def new_getaddrinfo(host, port, family=0, type=0, proto=0, flags=0):
-    return old_getaddrinfo(host, port, socket.AF_INET, type, proto, flags)
-socket.getaddrinfo = new_getaddrinfo
-# ---------------------------------------------------------------------
-
-import pymysql
+import mysql.connector
 import os
 from flask import Flask, render_template, request, flash, redirect, url_for, session
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
@@ -18,19 +10,14 @@ from datetime import datetime
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# --- INISIALISASI DATABASE ---
 def get_db_connection():
-    # Mengambil path absolut dari ca.pem agar Vercel tidak kebingungan mencarinya
-    ca_path = os.path.join(os.path.dirname(__file__), 'ca.pem')
-    
-    return pymysql.connect(
-        host=os.environ.get('DB_HOST', 'insomnify-3223f801-db-insomnify.f.aivencloud.com').strip(),
-        user=os.environ.get('DB_USER', 'avnadmin').strip(),
-        password=os.environ.get('DB_PASSWORD', '').strip(),
-        database=os.environ.get('DB_NAME', 'defaultdb').strip(),
-        port=int(os.environ.get('DB_PORT', '25667').strip()),
-        cursorclass=pymysql.cursors.DictCursor,
-        ssl={'ca': ca_path} 
+    return mysql.connector.connect(
+        host=os.environ.get('DB_HOST', 'insomnify-3223f801-db-insomnify.f.aivencloud.com'),
+        user=os.environ.get('DB_USER', 'avnadmin'),
+        password=os.environ.get('DB_PASSWORD', ''),
+        database=os.environ.get('DB_NAME', 'defaultdb'),
+        port=int(os.environ.get('DB_PORT', '25667')),
+        ssl_ca='ca.pem'
     )
 
 # --- KONFIGURASI LOGIN MANAGER ---
