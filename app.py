@@ -1,5 +1,5 @@
 import socket
-# Patch IPv4
+# --- PATCH IPv4 UNTUK VERCEL ---
 old_getaddrinfo = socket.getaddrinfo
 def new_getaddrinfo(host, port, family=0, type=0, proto=0, flags=0):
     return old_getaddrinfo(host, port, socket.AF_INET, type, proto, flags)
@@ -17,14 +17,17 @@ from datetime import datetime
 app = Flask(__name__)
 app.config.from_object(Config)
 
+# --- INISIALISASI DATABASE MENGGUNAKAN PYMYSQL ---
 def get_db_connection():
-    return mysql.connector.connect(
-        host=os.environ.get('DB_HOST', 'insomnify-3223f801-db-insomnify.f.aivencloud.com'),
-        user=os.environ.get('DB_USER', 'avnadmin'),
-        password=os.environ.get('DB_PASSWORD', ''),
-        database=os.environ.get('DB_NAME', 'defaultdb'),
-        port=int(os.environ.get('DB_PORT', '25667')),
-        ssl_ca='ca.pem'
+    ca_path = os.path.join(os.path.dirname(__file__), 'ca.pem')
+    return pymysql.connect(
+        host=os.environ.get('DB_HOST', 'insomnify-3223f801-db-insomnify.f.aivencloud.com').strip(),
+        user=os.environ.get('DB_USER', 'avnadmin').strip(),
+        password=os.environ.get('DB_PASSWORD', '').strip(),
+        database=os.environ.get('DB_NAME', 'defaultdb').strip(),
+        port=int(os.environ.get('DB_PORT', '25667').strip()),
+        cursorclass=pymysql.cursors.DictCursor,
+        ssl={'ca': ca_path} 
     )
 
 # --- KONFIGURASI LOGIN MANAGER ---
@@ -33,9 +36,6 @@ login_manager.login_view = 'login'
 login_manager.login_message = 'Silakan login terlebih dahulu untuk mengakses halaman ini.'
 login_manager.login_message_category = 'info'
 
-# ===============================
-# USER & ROLE CLASS
-# ===============================
 class User(UserMixin):
     def __init__(self, id, username, role):
         self.id = id
@@ -57,9 +57,6 @@ def load_user(user_id):
         return User(data['id_user'], data['username'], data['role'])
     return None
 
-# ===============================
-# ROUTE UMUM & EDUKASI
-# ===============================
 @app.route("/")
 @app.route("/home")
 def home():
@@ -77,9 +74,6 @@ def about():
 def rekomendasi():
     return render_template("user/rekomendasi.html")
 
-# ===============================
-# FITUR DETEKSI (USER)
-# ===============================
 @app.route("/deteksi")
 @login_required
 def deteksi():
@@ -143,9 +137,6 @@ def riwayat():
     conn.close()
     return render_template("user/riwayat.html", riwayat=riwayat_data)
 
-# ===============================
-# AUTHENTICATION
-# ===============================
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated: return redirect(url_for('home'))
@@ -215,9 +206,6 @@ def logout():
     flash('Anda telah berhasil keluar.', 'info')
     return redirect(url_for('login'))
 
-# ===============================
-# ADMIN PANEL
-# ===============================
 @app.route("/admin/dashboard")
 @login_required
 def admin_dashboard():
