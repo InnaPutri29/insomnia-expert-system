@@ -11,16 +11,23 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 # --- INISIALISASI DATABASE ---
-# Fungsi ini menggantikan peran flask_mysqldb
 def get_db_connection():
+    # .strip() berfungsi untuk membuang spasi/enter yang tidak sengaja ikut tercopy
+    db_host = os.environ.get('DB_HOST', 'insomnify-3223f801-db-insomnify.f.aivencloud.com').strip()
+    db_user = os.environ.get('DB_USER', 'avnadmin').strip()
+    db_pass = os.environ.get('DB_PASSWORD', '').strip()
+    db_name = os.environ.get('DB_NAME', 'defaultdb').strip()
+    db_port = int(os.environ.get('DB_PORT', '25667').strip())
+
     return pymysql.connect(
-        host=os.environ.get('DB_HOST', 'insomnify-3223f801-db-insomnify.f.aivencloud.com'),
-        user=os.environ.get('DB_USER', 'avnadmin'),
-        password=os.environ.get('DB_PASSWORD'), # Akan ditarik dari Environment Variables Vercel
-        database=os.environ.get('DB_NAME', 'defaultdb'),
-        port=int(os.environ.get('DB_PORT', 25667)),
-        cursorclass=pymysql.cursors.DictCursor, # Mengembalikan data dalam bentuk Dictionary
-        ssl={'ca': 'ca.pem'} # Wajib untuk Aiven
+        host=db_host,
+        user=db_user,
+        password=db_pass,
+        database=db_name,
+        port=db_port,
+        cursorclass=pymysql.cursors.DictCursor,
+        connect_timeout=10, # Mencegah serverless Vercel menggantung (timeout)
+        ssl={'ca': '/etc/ssl/certs/ca-certificates.crt'} # Menggunakan sertifikat CA bawaan Vercel/Linux, jauh lebih aman
     )
 
 # --- KONFIGURASI LOGIN MANAGER ---
