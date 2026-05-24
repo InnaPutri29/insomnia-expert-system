@@ -1,4 +1,10 @@
-import mysql.connector
+import socket
+old_getaddrinfo = socket.getaddrinfo
+def new_getaddrinfo(host, port, family=0, type=0, proto=0, flags=0):
+    return old_getaddrinfo(host, port, socket.AF_INET, type, proto, flags)
+socket.getaddrinfo = new_getaddrinfo
+
+import pymysql
 import os
 from flask import Flask, render_template, request, flash, redirect, url_for, session
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
