@@ -1,4 +1,11 @@
-import mysql.connector
+import socket
+old_getaddrinfo = socket.getaddrinfo
+def new_getaddrinfo(host, port, family=0, type=0, proto=0, flags=0):
+    return old_getaddrinfo(host, port, socket.AF_INET, type, proto, flags)
+socket.getaddrinfo = new_getaddrinfo
+# ---------------------------------------------------------------------
+
+import pymysql
 import os
 from flask import Flask, render_template, request, flash, redirect, url_for, session
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
@@ -12,14 +19,17 @@ app.config.from_object(Config)
 
 # --- INISIALISASI DATABASE ---
 def get_db_connection():
-    return mysql.connector.connect(
+    # Mengambil path absolut dari ca.pem agar Vercel tidak kebingungan mencarinya
+    ca_path = os.path.join(os.path.dirname(__file__), 'ca.pem')
+    
+    return pymysql.connect(
         host=os.environ.get('DB_HOST', 'insomnify-3223f801-db-insomnify.f.aivencloud.com').strip(),
         user=os.environ.get('DB_USER', 'avnadmin').strip(),
         password=os.environ.get('DB_PASSWORD', '').strip(),
         database=os.environ.get('DB_NAME', 'defaultdb').strip(),
         port=int(os.environ.get('DB_PORT', '25667').strip()),
-        client_flags=[mysql.connector.ClientFlag.SSL],
-        ssl_ca='ca.pem' 
+        cursorclass=pymysql.cursors.DictCursor,
+        ssl={'ca': ca_path} 
     )
 
 # --- KONFIGURASI LOGIN MANAGER ---
@@ -43,7 +53,7 @@ class User(UserMixin):
 @login_manager.user_loader
 def load_user(user_id):
     conn = get_db_connection()
-    cur = conn.cursor(dictionary=True)
+    cur = conn.cursor()
     cur.execute("SELECT id_user, username, role FROM users WHERE id_user = %s", (user_id,))
     data = cur.fetchone()
     cur.close()
@@ -79,7 +89,7 @@ def rekomendasi():
 @login_required
 def deteksi():
     conn = get_db_connection()
-    cur = conn.cursor(dictionary=True)
+    cur = conn.cursor()
     cur.execute("SELECT * FROM gejala ORDER BY id_gejala ASC")
     gejala = cur.fetchall()
     cur.close()
@@ -90,7 +100,7 @@ def deteksi():
 @login_required
 def proses_deteksi():
     conn = get_db_connection()
-    cur = conn.cursor(dictionary=True)
+    cur = conn.cursor()
     cur.execute("SELECT id_gejala FROM gejala ORDER BY id_gejala ASC")
     gejala_db = cur.fetchall()
     
@@ -131,7 +141,7 @@ def riwayat():
         return redirect(url_for('admin_riwayat'))
 
     conn = get_db_connection()
-    cur = conn.cursor(dictionary=True)
+    cur = conn.cursor()
     cur.execute("SELECT * FROM riwayat_deteksi WHERE nama_user = %s ORDER BY tanggal_deteksi DESC", (current_user.username,))
     riwayat_data = cur.fetchall()
     cur.close()
@@ -154,11 +164,10 @@ def register():
             flash('Konfirmasi password tidak cocok!', 'danger')
             return render_template('register.html')
 
-        # Penambahan decode untuk menghindari bentrok bcrypt
         hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         
         conn = get_db_connection()
-        cur = conn.cursor(dictionary=True)
+        cur = conn.cursor()
         try:
             cur.execute("INSERT INTO users (username, email, password, role) VALUES (%s, %s, %s, 'user')", (username, email, hashed))
             conn.commit()
@@ -181,7 +190,7 @@ def login():
         password = request.form.get('password')
 
         conn = get_db_connection()
-        cur = conn.cursor(dictionary=True)
+        cur = conn.cursor()
         cur.execute("SELECT * FROM users WHERE username = %s", (username,))
         user_data = cur.fetchone()
         cur.close()
@@ -220,7 +229,7 @@ def admin_dashboard():
     if current_user.role != 'admin': return redirect(url_for('home'))
     
     conn = get_db_connection()
-    cur = conn.cursor(dictionary=True)
+    cur = conn.cursor()
     
     stats = {}
     kategori = ['Tidak Insomnia', 'Insomnia Ringan', 'Insomnia Sedang', 'Insomnia Berat']
@@ -250,7 +259,7 @@ def admin_manage_deteksi():
     if current_user.role != 'admin': return redirect(url_for('home'))
     
     conn = get_db_connection()
-    cur = conn.cursor(dictionary=True)
+    cur = conn.cursor()
     cur.execute("SELECT * FROM gejala ORDER BY id_gejala ASC")
     gejala_list = cur.fetchall()
     cur.close()
@@ -267,7 +276,7 @@ def admin_add_gejala():
     kategori = request.form.get('kategori')
     
     conn = get_db_connection()
-    cur = conn.cursor(dictionary=True)
+    cur = conn.cursor()
     try:
         cur.execute("INSERT INTO gejala (kode_gejala, pertanyaan, kategori, bobot) VALUES (%s, %s, %s, 0)", (kode, pertanyaan, kategori))
         conn.commit()
@@ -289,7 +298,7 @@ def admin_edit_gejala(id):
     kategori = request.form.get('kategori')
     
     conn = get_db_connection()
-    cur = conn.cursor(dictionary=True)
+    cur = conn.cursor()
     try:
         cur.execute("UPDATE gejala SET kode_gejala=%s, pertanyaan=%s, kategori=%s WHERE id_gejala=%s", (kode, pertanyaan, kategori, id))
         conn.commit()
@@ -307,7 +316,7 @@ def admin_edit_gejala(id):
 def admin_delete_gejala(id):
     if current_user.role != 'admin': return redirect(url_for('home'))
     conn = get_db_connection()
-    cur = conn.cursor(dictionary=True)
+    cur = conn.cursor()
     cur.execute("DELETE FROM gejala WHERE id_gejala = %s", (id,))
     conn.commit()
     cur.close()
@@ -320,7 +329,7 @@ def admin_delete_gejala(id):
 def admin_manage_pengguna():
     if current_user.role != 'admin': return redirect(url_for('home'))
     conn = get_db_connection()
-    cur = conn.cursor(dictionary=True)
+    cur = conn.cursor()
     cur.execute("SELECT id_user, username, email, role FROM users")
     users_list = cur.fetchall()
     cur.close()
@@ -332,7 +341,7 @@ def admin_manage_pengguna():
 def admin_delete_user(id):
     if current_user.role != 'admin': return redirect(url_for('home'))
     conn = get_db_connection()
-    cur = conn.cursor(dictionary=True)
+    cur = conn.cursor()
     cur.execute("DELETE FROM users WHERE id_user = %s", (id,))
     conn.commit()
     cur.close()
@@ -345,7 +354,7 @@ def admin_delete_user(id):
 def admin_riwayat():
     if current_user.role != 'admin': return redirect(url_for('home'))
     conn = get_db_connection()
-    cur = conn.cursor(dictionary=True)
+    cur = conn.cursor()
     cur.execute("SELECT * FROM riwayat_deteksi ORDER BY tanggal_deteksi DESC")
     riwayat_all = cur.fetchall()
     cur.close()
@@ -357,7 +366,7 @@ def admin_riwayat():
 def admin_delete_riwayat(id):
     if current_user.role != 'admin': return redirect(url_for('home'))
     conn = get_db_connection()
-    cur = conn.cursor(dictionary=True)
+    cur = conn.cursor()
     cur.execute("DELETE FROM riwayat_deteksi WHERE id_riwayat = %s", (id,))
     conn.commit()
     cur.close()
