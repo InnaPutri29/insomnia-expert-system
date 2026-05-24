@@ -1,3 +1,5 @@
 [project]
 name = "insomnia-expert-system"
+version = "0.1.0"
+description = "Sistem Pakar Deteksi Insomnia"
 requires-python = ">=3.9"
