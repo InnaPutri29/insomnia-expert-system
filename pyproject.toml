@@ -1,0 +1,3 @@
+[project]
+name = "insomnia-expert-system"
+requires-python = ">=3.9"
