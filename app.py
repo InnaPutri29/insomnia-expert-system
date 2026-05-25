@@ -1,3 +1,10 @@
+import socket
+# --- PATCH IPv4 UNTUK VERCEL ---
+old_getaddrinfo = socket.getaddrinfo
+def new_getaddrinfo(host, port, family=0, type=0, proto=0, flags=0):
+    return old_getaddrinfo(host, port, socket.AF_INET, type, proto, flags)
+socket.getaddrinfo = new_getaddrinfo
+
 import pymysql
 import os
 from flask import Flask, render_template, request, flash, redirect, url_for, session
@@ -30,11 +37,11 @@ def get_db_connection():
     ssl_config = {'ca': ca_path} if ca_path else {}
 
     return pymysql.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database=db_name,
-        port=db_port,
+        host=os.environ.get('DB_HOST', 'insomnify-3223f801-db-insomnify.f.aivencloud.com').strip(),
+        user=os.environ.get('DB_USER', 'avnadmin').strip(),
+        password=os.environ.get('DB_PASSWORD', '').strip(),
+        database=os.environ.get('DB_NAME', 'defaultdb').strip(),
+        port=int(os.environ.get('DB_PORT', '25667').strip()),
         cursorclass=pymysql.cursors.DictCursor,
         connect_timeout=10, # Mencegah serverless Vercel menggantung (timeout)
         ssl=ssl_config
@@ -46,9 +53,6 @@ login_manager.login_view = 'login'
 login_manager.login_message = 'Silakan login terlebih dahulu untuk mengakses halaman ini.'
 login_manager.login_message_category = 'info'
 
-# ===============================
-# USER & ROLE CLASS
-# ===============================
 class User(UserMixin):
     def __init__(self, id, username, role):
         self.id = id
@@ -70,9 +74,6 @@ def load_user(user_id):
         return User(data['id_user'], data['username'], data['role'])
     return None
 
-# ===============================
-# ROUTE UMUM & EDUKASI
-# ===============================
 @app.route("/")
 @app.route("/home")
 def home():
@@ -90,9 +91,6 @@ def about():
 def rekomendasi():
     return render_template("user/rekomendasi.html")
 
-# ===============================
-# FITUR DETEKSI (USER)
-# ===============================
 @app.route("/deteksi")
 @login_required
 def deteksi():
@@ -156,9 +154,6 @@ def riwayat():
     conn.close()
     return render_template("user/riwayat.html", riwayat=riwayat_data)
 
-# ===============================
-# AUTHENTICATION
-# ===============================
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated: return redirect(url_for('home'))
@@ -172,7 +167,7 @@ def register():
             flash('Konfirmasi password tidak cocok!', 'danger')
             return render_template('register.html')
 
-        hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         
         conn = get_db_connection()
         cur = conn.cursor()
@@ -181,7 +176,7 @@ def register():
             conn.commit()
             flash('Registrasi berhasil! Silakan login.', 'success')
             return redirect(url_for('login'))
-        except:
+        except Exception as e:
             conn.rollback()
             flash('Username/Email sudah terdaftar.', 'danger')
         finally:
@@ -228,9 +223,6 @@ def logout():
     flash('Anda telah berhasil keluar.', 'info')
     return redirect(url_for('login'))
 
-# ===============================
-# ADMIN PANEL
-# ===============================
 @app.route("/admin/dashboard")
 @login_required
 def admin_dashboard():
@@ -243,10 +235,12 @@ def admin_dashboard():
     kategori = ['Tidak Insomnia', 'Insomnia Ringan', 'Insomnia Sedang', 'Insomnia Berat']
     for kat in kategori:
         cur.execute("SELECT COUNT(*) as cnt FROM riwayat_deteksi WHERE hasil_kategori = %s", (kat,))
-        stats[kat] = cur.fetchone()['cnt']
+        row = cur.fetchone()
+        stats[kat] = row['cnt']
 
     cur.execute("SELECT COUNT(*) as cnt FROM users")
-    total_user = cur.fetchone()['cnt']
+    row = cur.fetchone()
+    total_user = row['cnt']
 
     cur.execute("SELECT * FROM riwayat_deteksi ORDER BY tanggal_deteksi DESC LIMIT 5")
     riwayat_recent = cur.fetchall()
