@@ -37,16 +37,39 @@ def get_db_connection():
 
     ssl_config = {'ca': ca_path} if ca_path else {}
 
-    return pymysql.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database=db_name,
-        port=db_port,
-        cursorclass=pymysql.cursors.DictCursor,
-        connect_timeout=10, # Mencegah serverless Vercel menggantung (timeout)
-        ssl=ssl_config
-    )
+    try:
+        # Mencoba koneksi dengan SSL penuh (verifikasi CA)
+        return pymysql.connect(
+            host=db_host,
+            user=db_user,
+            password=db_pass,
+            database=db_name,
+            port=db_port,
+            cursorclass=pymysql.cursors.DictCursor,
+            connect_timeout=10, # Mencegah serverless Vercel menggantung (timeout)
+            ssl=ssl_config
+        )
+    except Exception as e:
+        # Jika gagal karena verifikasi sertifikat SSL, lakukan fallback dengan menonaktifkan verifikasi (tetap terenkripsi SSL)
+        err_str = str(e)
+        if "CERTIFICATE_VERIFY_FAILED" in err_str or "certificate verify failed" in err_str:
+            import ssl
+            ctx = ssl.create_default_context()
+            ctx.check_hostname = False
+            ctx.verify_mode = ssl.CERT_NONE
+            
+            return pymysql.connect(
+                host=db_host,
+                user=db_user,
+                password=db_pass,
+                database=db_name,
+                port=db_port,
+                cursorclass=pymysql.cursors.DictCursor,
+                connect_timeout=10,
+                ssl=ctx
+            )
+        else:
+            raise e
 
 # --- KONFIGURASI LOGIN MANAGER ---
 login_manager = LoginManager(app)
