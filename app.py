@@ -10,14 +10,24 @@ from datetime import datetime
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# --- INISIALISASI DATABASE ---
 def get_db_connection():
     # .strip() berfungsi untuk membuang spasi/enter yang tidak sengaja ikut tercopy
-    db_host = os.environ.get('DB_HOST', 'insomnify-3223f801-db-insomnify.f.aivencloud.com').strip()
-    db_user = os.environ.get('DB_USER', 'avnadmin').strip()
-    db_pass = os.environ.get('DB_PASSWORD', '').strip()
-    db_name = os.environ.get('DB_NAME', 'defaultdb').strip()
-    db_port = int(os.environ.get('DB_PORT', '25667').strip())
+    db_host = (os.environ.get('DB_HOST') or os.environ.get('MYSQL_HOST') or 'insomnify-3223f801-db-insomnify.f.aivencloud.com').strip()
+    db_user = (os.environ.get('DB_USER') or os.environ.get('MYSQL_USER') or 'avnadmin').strip()
+    db_pass = (os.environ.get('DB_PASSWORD') or os.environ.get('MYSQL_PASSWORD') or '').strip()
+    db_name = (os.environ.get('DB_NAME') or os.environ.get('MYSQL_DB') or 'defaultdb').strip()
+    db_port = int(str(os.environ.get('DB_PORT') or os.environ.get('MYSQL_PORT') or '25667').strip())
+
+    # Tentukan path SSL CA secara dinamis agar aman di Vercel (Linux) maupun lokal (Windows)
+    ca_path = '/etc/ssl/certs/ca-certificates.crt'
+    if not os.path.exists(ca_path):
+        local_ca = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'ca.pem')
+        if os.path.exists(local_ca):
+            ca_path = local_ca
+        else:
+            ca_path = None
+
+    ssl_config = {'ca': ca_path} if ca_path else {}
 
     return pymysql.connect(
         host=db_host,
@@ -27,7 +37,7 @@ def get_db_connection():
         port=db_port,
         cursorclass=pymysql.cursors.DictCursor,
         connect_timeout=10, # Mencegah serverless Vercel menggantung (timeout)
-        ssl={'ca': '/etc/ssl/certs/ca-certificates.crt'} # Menggunakan sertifikat CA bawaan Vercel/Linux, jauh lebih aman
+        ssl=ssl_config
     )
 
 # --- KONFIGURASI LOGIN MANAGER ---
