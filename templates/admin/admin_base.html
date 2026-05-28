@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - SomnoLogic</title>
+    <title>Admin Panel - Insomnify</title>
+<link rel="icon" href="{{ url_for('static', filename='image/logo2.png') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -80,11 +81,13 @@
     <div class="d-flex">
         <nav id="sidebar" class="d-none d-md-block">
             <div class="sidebar-header d-flex align-items-center">
-                <div class="bg-white rounded-3 p-2 me-2">
-                    <i class="fa-solid fa-bed text-primary"></i>
+                <div class="bg-white rounded-3 p-1 me-2 d-flex justify-content-center align-items-center"
+                    style="width: 42px; height: 42px;">
+                    <img src="{{ url_for('static', filename='image/logo2.png') }}" alt="Logo Insomnify"
+                        style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <div>
-                    <h6 class="mb-0 fw-bold">SomnoLogic</h6>
+                    <h6 class="mb-0 fw-bold">Insomnify</h6>
                     <small style="font-size: 10px; opacity: 0.7;">Administrator Panel</small>
                 </div>
             </div>
