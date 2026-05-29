@@ -1,186 +1,12 @@
 {% extends "base.html" %} {% block content %}
 
-<style>
-  /* Variabel Tema Estetik Light Blue */
-  :root {
-    --primary-blue: #3b82f6;
-    --light-blue: #eff6ff;
-    --hover-blue: #2563eb;
-    --text-dark: #1e293b;
-    --text-muted: #64748b;
-  }
-
-  body {
-    color: var(--text-dark);
-  }
-
-  /* HERO SECTION */
-  .hero {
-    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-    padding: 100px 20px;
-    border-radius: 0 0 2.5rem 2.5rem;
-    margin-bottom: 4rem;
-    text-align: center;
-  }
-
-  .hero h1 {
-    font-weight: 800;
-    color: var(--primary-blue);
-    margin-bottom: 1.2rem;
-    font-size: clamp(2rem, 5vw, 3.5rem); /* Ukuran teks responsif */
-    line-height: 1.2;
-  }
-
-  .hero p {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    max-width: 650px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-
-  /* INFO BOX CARDS */
-  .info-card {
-    background: #ffffff;
-    padding: 2.5rem 1.5rem;
-    border-radius: 1.25rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid #e2e8f0;
-  }
-
-  .info-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.15);
-    border-color: var(--light-blue);
-  }
-
-  .info-card i {
-    font-size: 2.5rem;
-    color: var(--primary-blue);
-    margin-bottom: 1.5rem;
-  }
-
-  .info-card h5 {
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--text-dark);
-  }
-
-  .info-card p {
-    color: var(--text-muted);
-    flex-grow: 1;
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-
-  .info-btn, .fitur-btn {
-    margin-top: 1.5rem;
-    padding: 0.6rem 1.8rem;
-    border-radius: 9999px;
-    background-color: var(--light-blue);
-    color: var(--primary-blue);
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .info-btn:hover, .fitur-btn:hover {
-    background-color: var(--primary-blue);
-    color: #ffffff;
-  }
-
-  /* WHY CHOOSE US SECTION */
-  .why-section {
-    padding: 5rem 0;
-  }
-
-  .why-section h2 {
-    font-weight: 800;
-    color: var(--text-dark);
-  }
-
-  .section-desc {
-    color: var(--text-muted);
-    max-width: 700px;
-    margin: 1rem auto 3rem auto;
-    line-height: 1.6;
-  }
-
-  .why-section .icon {
-    font-size: 2rem;
-    color: var(--primary-blue);
-    background: var(--light-blue);
-    width: 80px;
-    height: 80px;
-    line-height: 80px;
-    border-radius: 50%;
-    margin-bottom: 1.5rem;
-    display: inline-block;
-  }
-
-  .why-section h5 {
-    font-weight: 700;
-  }
-
-  .why-section p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-  }
-
-  /* CALL TO ACTION */
-  .cta-section {
-    padding: 4rem 20px;
-    background: var(--primary-blue);
-    color: white;
-    border-radius: 2rem;
-    margin: 2rem auto 5rem auto;
-    max-width: 90%;
-    box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.3);
-  }
-
-  .cta-section h2 {
-    font-weight: 800;
-    margin-bottom: 1rem;
-    color: white;
-  }
-
-  .cta-section p {
-    opacity: 0.9;
-    margin-bottom: 2.5rem;
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .cta-section .btn-primary {
-    background-color: white;
-    color: var(--primary-blue);
-    border: none;
-    font-weight: 700;
-    padding: 0.8rem 2.5rem;
-    border-radius: 9999px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .cta-section .btn-primary:hover {
-    transform: scale(1.05);
-    background-color: #f8fafc;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  }
-</style>
-
-<section class="hero">
-  <div class="container hero-content">
+<section class="hero py-4 py-md-5">
+  <div class="container hero-content px-3 px-md-0">
     <h1>
-      Deteksi Dini <br />
+      Deteksi Dini <br class="d-none d-md-block" />
       Gangguan Insomnia
     </h1>
+
     <p>
       Platform edukasi kesehatan untuk membantu masyarakat memahami, mendeteksi,
       dan menangani gangguan tidur insomnia secara dini.
@@ -188,38 +14,46 @@
   </div>
 </section>
 
-<section class="info-box container">
-  <div class="row text-center g-4">
-    <div class="col-md-4">
-      <div class="info-card">
-        <i class="fa-solid fa-book-medical"></i>
-        <h5>Edukasi Insomnia</h5>
-        <p>
-          Informasi mengenai penyebab, gejala, dan dampak insomnia bagi kesehatan.
-        </p>
-        <a href="{{ url_for('edukasi') }}" class="info-btn">Pelajari</a>
+<section class="info-box container my-4 my-md-5">
+  <div class="row text-center">
+    <div class="col-12 col-md-4 mb-4 mb-md-0">
+      <div class="info-card h-100 d-flex flex-column justify-content-between">
+        <div>
+          <i class="fa-solid fa-book-medical mt-3 mb-3"></i>
+          <h5>Edukasi Insomnia</h5>
+          <p>
+            Informasi mengenai penyebab, gejala, dan dampak insomnia bagi
+            kesehatan.
+          </p>
+        </div>
+        <a href="{{ url_for('edukasi') }}" class="info-btn mt-auto mb-3">Pelajari</a>
       </div>
     </div>
 
-    <div class="col-md-4">
-      <div class="info-card">
-        <i class="fa-solid fa-brain"></i>
-        <h5>Deteksi Dini</h5>
-        <p>
-          Sistem pakar menggunakan metode Forward Chaining untuk analisis gejala.
-        </p>
-        <a href="{{ url_for('deteksi') }}" class="info-btn">Mulai Deteksi</a>
+    <div class="col-12 col-md-4 mb-4 mb-md-0">
+      <div class="info-card h-100 d-flex flex-column justify-content-between">
+        <div>
+          <i class="fa-solid fa-brain mt-3 mb-3"></i>
+          <h5>Deteksi Dini</h5>
+          <p>
+            Sistem pakar menggunakan metode Forward Chaining untuk analisis
+            gejala.
+          </p>
+        </div>
+        <a href="{{ url_for('deteksi') }}" class="info-btn mt-auto mb-3">Mulai Deteksi</a>
       </div>
     </div>
 
-    <div class="col-md-4">
-      <div class="info-card">
-        <i class="fa-solid fa-heart-pulse"></i>
-        <h5>Rekomendasi</h5>
-        <p>
-          Memberikan saran penanganan awal untuk mengurangi risiko insomnia.
-        </p>
-        <a href="{{ url_for('rekomendasi') }}" class="fitur-btn">
+    <div class="col-12 col-md-4 mb-4 mb-md-0">
+      <div class="info-card h-100 d-flex flex-column justify-content-between">
+        <div>
+          <i class="fa-solid fa-heart-pulse mt-3 mb-3"></i>
+          <h5>Rekomendasi</h5>
+          <p>
+            Memberikan saran penanganan awal untuk mengurangi risiko insomnia.
+          </p>
+        </div>
+        <a href="{{ url_for('rekomendasi') }}" class="fitur-btn mt-auto mb-3">
           Lihat Rekomendasi
         </a>
       </div>
@@ -227,30 +61,31 @@
   </div>
 </section>
 
-<section class="why-section">
-  <div class="container text-center">
+<section class="why-section py-4 py-md-5">
+  <div class="container text-center px-3 px-md-0">
     <h2>Mengapa Website Ini Dibuat?</h2>
+
     <p class="section-desc">
       Insomnia merupakan salah satu gangguan tidur yang sering dialami oleh
       mahasiswa dan masyarakat umum. Website ini membantu memberikan edukasi
       serta deteksi dini insomnia.
     </p>
 
-    <div class="row mt-5 g-4">
-      <div class="col-md-4">
-        <i class="fa-solid fa-stethoscope icon"></i>
+    <div class="row mt-4 mt-md-5">
+      <div class="col-12 col-md-4 mb-4 mb-md-0">
+        <i class="fa-solid fa-stethoscope icon mb-3"></i>
         <h5>Informasi Kesehatan</h5>
         <p>Materi edukasi berdasarkan referensi kesehatan terpercaya.</p>
       </div>
 
-      <div class="col-md-4">
-        <i class="fa-solid fa-laptop-medical icon"></i>
+      <div class="col-12 col-md-4 mb-4 mb-md-0">
+        <i class="fa-solid fa-laptop-medical icon mb-3"></i>
         <h5>Sistem Pakar</h5>
         <p>Menggunakan metode Forward Chaining dalam proses inferensi.</p>
       </div>
 
-      <div class="col-md-4">
-        <i class="fa-solid fa-user-doctor icon"></i>
+      <div class="col-12 col-md-4 mb-4 mb-md-0">
+        <i class="fa-solid fa-user-doctor icon mb-3"></i>
         <h5>Bantuan Awal</h5>
         <p>Memberikan rekomendasi penanganan sebelum konsultasi ke dokter.</p>
       </div>
@@ -258,13 +93,15 @@
   </div>
 </section>
 
-<section class="cta-section">
-  <div class="container text-center">
+<section class="cta-section py-4 py-md-5">
+  <div class="container text-center px-3 px-md-0">
     <h2>Mulai Deteksi Gejala Insomnia Anda</h2>
-    <p>
+
+    <p class="mb-4">
       Jawab beberapa pertanyaan sederhana untuk mengetahui kemungkinan gangguan
       insomnia yang Anda alami.
     </p>
+
     <a href="/deteksi" class="btn btn-primary btn-lg"> Mulai Sekarang </a>
   </div>
 </section>
