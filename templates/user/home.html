@@ -16,53 +16,51 @@
 </section>
 
 <!-- INFO BOX -->
-<section class="info-box container">
-  <div class="row text-center">
-    <div class="col-md-4">
-      <div class="info-card">
-        <i class="fa-solid fa-book-medical"></i>
-
+<section class="info-box container py-4">
+  <div class="row text-center g-4">
+    
+    <div class="col-12 col-md-4">
+      <div class="info-card h-100 d-flex flex-column align-items-center">
+        <i class="fa-solid fa-book-medical mb-3"></i>
+        
         <h5>Edukasi Insomnia</h5>
-
-        <p>
-          Informasi mengenai penyebab, gejala, dan dampak insomnia bagi
-          kesehatan.
+        
+        <p class="mb-4">
+          Informasi mengenai penyebab, gejala, dan dampak insomnia bagi kesehatan.
         </p>
-
-        <a href="{{ url_for('edukasi') }}" class="info-btn">Pelajari</a>
+        
+        <a href="{{ url_for('edukasi') }}" class="info-btn mt-auto">Pelajari</a>
       </div>
     </div>
 
-    <div class="col-md-4">
-      <div class="info-card">
-        <i class="fa-solid fa-brain"></i>
-
+    <div class="col-12 col-md-4">
+      <div class="info-card h-100 d-flex flex-column align-items-center">
+        <i class="fa-solid fa-brain mb-3"></i>
+        
         <h5>Deteksi Dini</h5>
-
-        <p>
-          Sistem pakar menggunakan metode Forward Chaining untuk analisis
-          gejala.
+        
+        <p class="mb-4">
+          Sistem pakar menggunakan metode Forward Chaining untuk analisis gejala.
         </p>
-
-        <a href="{{ url_for('deteksi') }}" class="info-btn">Mulai Deteksi</a>
+        
+        <a href="{{ url_for('deteksi') }}" class="info-btn mt-auto">Mulai Deteksi</a>
       </div>
     </div>
 
-    <div class="col-md-4">
-      <div class="info-card">
-        <i class="fa-solid fa-heart-pulse"></i>
-
+    <div class="col-12 col-md-4">
+      <div class="info-card h-100 d-flex flex-column align-items-center">
+        <i class="fa-solid fa-heart-pulse mb-3"></i>
+        
         <h5>Rekomendasi</h5>
-
-        <p>
+        
+        <p class="mb-4">
           Memberikan saran penanganan awal untuk mengurangi risiko insomnia.
         </p>
-
-        <a href="{{ url_for('rekomendasi') }}" class="fitur-btn">
-          Lihat Rekomendasi
-        </a>
+        
+        <a href="{{ url_for('rekomendasi') }}" class="fitur-btn mt-auto">Lihat Rekomendasi</a>
       </div>
     </div>
+
   </div>
 </section>
 
