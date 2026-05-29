@@ -1,9 +1,10 @@
 {% extends "base.html" %} {% block content %}
 
-<section class="hero py-4 py-md-5">
-  <div class="container hero-content px-3 px-md-0">
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-content">
     <h1>
-      Deteksi Dini <br class="d-none d-md-block" />
+      Deteksi Dini <br />
       Gangguan Insomnia
     </h1>
 
@@ -14,46 +15,53 @@
   </div>
 </section>
 
-<section class="info-box container my-4 my-md-5">
+<!-- INFO BOX -->
+<section class="info-box container">
   <div class="row text-center">
+    <!-- Penambahan col-12 dan mb-4 agar turun ke bawah di layar HP -->
     <div class="col-12 col-md-4 mb-4 mb-md-0">
-      <div class="info-card h-100 d-flex flex-column justify-content-between">
-        <div>
-          <i class="fa-solid fa-book-medical mt-3 mb-3"></i>
-          <h5>Edukasi Insomnia</h5>
-          <p>
-            Informasi mengenai penyebab, gejala, dan dampak insomnia bagi
-            kesehatan.
-          </p>
-        </div>
-        <a href="{{ url_for('edukasi') }}" class="info-btn mt-auto mb-3">Pelajari</a>
+      <div class="info-card">
+        <i class="fa-solid fa-book-medical"></i>
+
+        <h5>Edukasi Insomnia</h5>
+
+        <p>
+          Informasi mengenai penyebab, gejala, dan dampak insomnia bagi
+          kesehatan.
+        </p>
+
+        <a href="{{ url_for('edukasi') }}" class="info-btn">Pelajari</a>
       </div>
     </div>
 
+    <!-- Penambahan col-12 dan mb-4 agar turun ke bawah di layar HP -->
     <div class="col-12 col-md-4 mb-4 mb-md-0">
-      <div class="info-card h-100 d-flex flex-column justify-content-between">
-        <div>
-          <i class="fa-solid fa-brain mt-3 mb-3"></i>
-          <h5>Deteksi Dini</h5>
-          <p>
-            Sistem pakar menggunakan metode Forward Chaining untuk analisis
-            gejala.
-          </p>
-        </div>
-        <a href="{{ url_for('deteksi') }}" class="info-btn mt-auto mb-3">Mulai Deteksi</a>
+      <div class="info-card">
+        <i class="fa-solid fa-brain"></i>
+
+        <h5>Deteksi Dini</h5>
+
+        <p>
+          Sistem pakar menggunakan metode Forward Chaining untuk analisis
+          gejala.
+        </p>
+
+        <a href="{{ url_for('deteksi') }}" class="info-btn">Mulai Deteksi</a>
       </div>
     </div>
 
+    <!-- Penambahan col-12 dan mb-4 agar turun ke bawah di layar HP -->
     <div class="col-12 col-md-4 mb-4 mb-md-0">
-      <div class="info-card h-100 d-flex flex-column justify-content-between">
-        <div>
-          <i class="fa-solid fa-heart-pulse mt-3 mb-3"></i>
-          <h5>Rekomendasi</h5>
-          <p>
-            Memberikan saran penanganan awal untuk mengurangi risiko insomnia.
-          </p>
-        </div>
-        <a href="{{ url_for('rekomendasi') }}" class="fitur-btn mt-auto mb-3">
+      <div class="info-card">
+        <i class="fa-solid fa-heart-pulse"></i>
+
+        <h5>Rekomendasi</h5>
+
+        <p>
+          Memberikan saran penanganan awal untuk mengurangi risiko insomnia.
+        </p>
+
+        <a href="{{ url_for('rekomendasi') }}" class="fitur-btn">
           Lihat Rekomendasi
         </a>
       </div>
@@ -61,8 +69,9 @@
   </div>
 </section>
 
-<section class="why-section py-4 py-md-5">
-  <div class="container text-center px-3 px-md-0">
+<!-- WHY CHOOSE US -->
+<section class="why-section">
+  <div class="container text-center">
     <h2>Mengapa Website Ini Dibuat?</h2>
 
     <p class="section-desc">
@@ -71,33 +80,43 @@
       serta deteksi dini insomnia.
     </p>
 
-    <div class="row mt-4 mt-md-5">
+    <div class="row mt-5">
+      <!-- Penambahan col-12 dan mb-4 agar turun ke bawah di layar HP -->
       <div class="col-12 col-md-4 mb-4 mb-md-0">
-        <i class="fa-solid fa-stethoscope icon mb-3"></i>
+        <i class="fa-solid fa-stethoscope icon"></i>
+
         <h5>Informasi Kesehatan</h5>
+
         <p>Materi edukasi berdasarkan referensi kesehatan terpercaya.</p>
       </div>
 
+      <!-- Penambahan col-12 dan mb-4 agar turun ke bawah di layar HP -->
       <div class="col-12 col-md-4 mb-4 mb-md-0">
-        <i class="fa-solid fa-laptop-medical icon mb-3"></i>
+        <i class="fa-solid fa-laptop-medical icon"></i>
+
         <h5>Sistem Pakar</h5>
+
         <p>Menggunakan metode Forward Chaining dalam proses inferensi.</p>
       </div>
 
+      <!-- Penambahan col-12 dan mb-4 agar turun ke bawah di layar HP -->
       <div class="col-12 col-md-4 mb-4 mb-md-0">
-        <i class="fa-solid fa-user-doctor icon mb-3"></i>
+        <i class="fa-solid fa-user-doctor icon"></i>
+
         <h5>Bantuan Awal</h5>
+
         <p>Memberikan rekomendasi penanganan sebelum konsultasi ke dokter.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cta-section py-4 py-md-5">
-  <div class="container text-center px-3 px-md-0">
+<!-- CALL TO ACTION -->
+<section class="cta-section">
+  <div class="container text-center">
     <h2>Mulai Deteksi Gejala Insomnia Anda</h2>
 
-    <p class="mb-4">
+    <p>
       Jawab beberapa pertanyaan sederhana untuk mengetahui kemungkinan gangguan
       insomnia yang Anda alami.
     </p>
