@@ -51,65 +51,78 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-<!-- MENU -->
+        <!-- MENU -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto align-items-lg-center">
             <li class="nav-item">
-              <a class="nav-link nav-custom" href="{{ url_for('home') }}">Beranda</a>
+              <a class="nav-link nav-custom" href="{{ url_for('home') }}">
+                Beranda
+              </a>
             </li>
+
             <li class="nav-item">
-              <a class="nav-link nav-custom" href="{{ url_for('edukasi') }}">Edukasi</a>
+              <a class="nav-link nav-custom" href="{{ url_for('edukasi') }}">
+                Edukasi
+              </a>
             </li>
+
             <li class="nav-item">
-              <a class="nav-link nav-custom" href="{{ url_for('deteksi') }}">Deteksi Awal</a>
+              <a class="nav-link nav-custom" href="{{ url_for('deteksi') }}">
+                Deteksi Awal
+              </a>
             </li>
+
             <li class="nav-item">
-              <a class="nav-link nav-custom" href="{{ url_for('rekomendasi') }}">Rekomendasi</a>
+              <a
+                class="nav-link nav-custom"
+                href="{{ url_for('rekomendasi') }}"
+              >
+                Rekomendasi
+              </a>
             </li>
+
             <li class="nav-item">
-              <a class="nav-link nav-custom" href="{{ url_for('about') }}">Tentang Kami</a>
+              <a class="nav-link nav-custom" href="{{ url_for('about') }}">
+                Tentang Kami
+              </a>
             </li>
 
             {% if current_user.is_authenticated %}
-            
-            <!-- Sembunyikan menu 'Riwayat' di navbar utama jika yang login adalah admin -->
-            {% if current_user.role != 'admin' %}
+
             <li class="nav-item">
-              <a class="nav-link nav-custom" href="{{ url_for('riwayat') }}">Riwayat</a>
+              <a class="nav-link nav-custom" href="{{ url_for('riwayat') }}">
+                Riwayat
+              </a>
             </li>
-            {% endif %}
 
             <!-- USER DROPDOWN -->
             <li class="nav-item dropdown ms-lg-3">
-              <a class="nav-link dropdown-toggle user-dropdown" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+              <a
+                class="nav-link dropdown-toggle user-dropdown"
+                href="#"
+                id="userDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+              >
                 <i class="fa-solid fa-user-circle"></i>
                 {{ current_user.username }}
               </a>
 
               <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                
-                <!-- KONDISI MENU BERDASARKAN ROLE -->
-                {% if current_user.role == 'admin' %}
-                <li>
-                  <a class="dropdown-item" href="{{ url_for('dashboard') }}">
-                    <i class="fa-solid fa-gauge"></i>
-                    Dashboard
-                  </a>
-                </li>
-                {% else %}
                 <li>
                   <a class="dropdown-item" href="{{ url_for('riwayat') }}">
                     <i class="fa-solid fa-clock-rotate-left"></i>
                     Riwayat Deteksi
                   </a>
                 </li>
-                {% endif %}
-                <!-- END KONDISI -->
 
                 <li><hr class="dropdown-divider" /></li>
 
                 <li>
-                  <a class="dropdown-item text-danger" href="{{ url_for('logout') }}">
+                  <a
+                    class="dropdown-item text-danger"
+                    href="{{ url_for('logout') }}"
+                  >
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Logout
                   </a>
@@ -134,6 +147,9 @@
                 Daftar
               </a>
             </li>
+
+            {% endif %}
+          </ul>
         </div>
       </div>
     </nav>
