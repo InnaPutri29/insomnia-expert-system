@@ -2928,3 +2928,149 @@ section {
     font-size: 1.3rem;
   }
 }
+
+/* ======================================================
+   RESPONSIVE NAVBAR FOR MOBILE SCREENS
+   ====================================================== */
+@media (max-width: 991.98px) {
+  .custom-navbar {
+    padding: 10px 0;
+  }
+
+  .navbar-collapse {
+    border-top: 1px solid #f1f5f9;
+    margin-top: 12px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+  }
+
+  /* Smooth fade-in slide-down animation when opening mobile menu */
+  .navbar-collapse.show {
+    animation: slideDownMenu 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes slideDownMenu {
+    from {
+      opacity: 0;
+      transform: translateY(-12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .navbar-nav {
+    align-items: stretch !important;
+  }
+
+  .nav-item {
+    margin-bottom: 5px;
+  }
+
+  .nav-custom {
+    margin-left: 0 !important;
+    padding: 12px 16px !important;
+    border-radius: 12px;
+    display: block;
+    width: 100%;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-custom:hover {
+    background-color: #eff6ff;
+    color: #2563eb !important;
+    padding-left: 22px !important; /* Smooth micro-interaction slide on hover */
+  }
+
+  .nav-custom::after {
+    display: none !important;
+  }
+
+  /* User Dropdown for Mobile */
+  .nav-item.dropdown {
+    width: 100%;
+  }
+
+  .user-dropdown {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px !important;
+    border-radius: 12px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    margin: 8px 0 !important;
+    transition: all 0.2s ease;
+  }
+
+  .user-dropdown:hover,
+  .user-dropdown:focus {
+    background-color: #eff6ff;
+    border-color: #cbd5e1;
+  }
+
+  .dropdown-menu {
+    position: static !important;
+    float: none;
+    box-shadow: none !important;
+    background-color: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    margin: 6px 8px 12px 8px !important;
+    padding: 6px !important;
+    width: auto;
+  }
+
+  .dropdown-item {
+    padding: 11px 16px !important;
+    border-radius: 8px !important;
+  }
+
+  .dropdown-item:hover {
+    background-color: #eff6ff !important;
+    color: #2563eb !important;
+  }
+
+  /* Buttons Login & Register on Mobile */
+  .navbar-nav .nav-item.ms-lg-3,
+  .navbar-nav .nav-item.ms-lg-2 {
+    margin-left: 0 !important;
+    margin-top: 8px !important;
+    width: 100%;
+  }
+
+  .btn-login,
+  .btn-register {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    padding: 12px !important;
+    font-size: 15px;
+    border-radius: 12px;
+    transition: all 0.25s ease;
+  }
+
+  .btn-register {
+    background: #0d6efd !important;
+    color: white !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.15) !important;
+  }
+
+  .btn-register:hover {
+    background: #0b5ed7 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 16px rgba(13, 110, 253, 0.25) !important;
+  }
+
+  .btn-login {
+    border: 1.5px solid #0d6efd !important;
+    color: #0d6efd !important;
+    background: transparent !important;
+  }
+
+  .btn-login:hover {
+    background: #0d6efd !important;
+    color: white !important;
+  }
+}
